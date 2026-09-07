@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Comentarios de Factura</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:20px;
+    background:#f5f5f5;
+}
+
+    h1{
+        text-align: center;
+        color: #333;
+    }
+
+    .contenedor{
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label{
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+    }
+
+    textarea, input, select{
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    textarea{
+        height: 150px;
+    }
+
+    button{
+        margin-top: 15px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        font-size: 16px;
+    }
+
+    .generar{
+        background-color: #28a745;
+    }
+
+    .copiar{
+        background-color: #007bff;
+        margin-left: 10px;
+    }
+
+    #resultado{
+        height: 200px;
+    }
+
+.menu{
+    background:#2c3e50;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo a{
+    color:white;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.menu ul{
+    list-style:none;
+    display:flex;
+}
+
+.menu ul li{
+    margin-left:20px;
+}
+
+.menu ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.menu ul li a:hover{
+    color:#f1c40f;
+}
+
+@media(max-width:768px){
+    .menu{
+        flex-direction:column;
+    }
+
+    .menu ul{
+        margin-top:10px;
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .menu ul li{
+        margin:10px 0;
+    }
+}
+</style>
+</head>
+<body>
+
+<nav class="menu">
+    <div class="logo">
+        <a href="facturas.html">Facturas</a>
+    </div>
+
+    <ul>
+        <li><a href="directorio_posventas.html">Directorio de Posventas</a></li>
+        <li><a href="enlaces.html">Enlaces</a></li>
+        <li><a href="reemplazo_sim.html">Reemplazos de SIM</a></li>
+        <li><a href="firmador_automatico_robo.html">Firma en Reporte de Robo</a></li>
+        <li><a href="facturas.html">Facturas</a></li>
+    </ul>
+</nav>
+
+<div class="contenedor">
+    <h1>Generador de Comentarios</h1>
+
+    <label>Nombre de la Empresa</label>
+    <input type="text" id="empresa" placeholder="Ingrese el nombre de la empresa">
+
+    <label>Mes</label>
+    <select id="mes">
+        <option>Enero</option>
+        <option>Febrero</option>
+        <option>Marzo</option>
+        <option>Abril</option>
+        <option>Mayo</option>
+        <option>Junio</option>
+        <option>Julio</option>
+        <option>Agosto</option>
+        <option>Septiembre</option>
+        <option>Octubre</option>
+        <option>Noviembre</option>
+        <option>Diciembre</option>
+    </select>
+
+    <label>Lista de Números de Teléfono (uno por línea)</label>
+    <textarea id="telefonos" placeholder="70000000&#10;71111111&#10;72222222"></textarea>
+
+    <button class="generar" onclick="generarComentarios()">Generar</button>
+    <button class="copiar" onclick="copiarResultado()">Copiar</button>
+
+    <label>Resultado</label>
+    <textarea id="resultado" readonly></textarea>
+</div>
+
+<script>
+function generarComentarios() {
+    const empresa = document.getElementById("empresa").value.trim();
+    const mes = document.getElementById("mes").value;
+    const telefonos = document.getElementById("telefonos").value
+        .split("\n")
+        .map(t => t.trim())
+        .filter(t => t !== "");
+
+    const comentarios = telefonos.map(tel =>
+        `${tel}-${empresa}-${mes}`
+    );
+
+    document.getElementById("resultado").value =
+        comentarios.join("\n");
+}
+
+function copiarResultado() {
+    const resultado = document.getElementById("resultado");
+
+    resultado.select();
+    resultado.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(resultado.value);
+
+    alert("Comentarios copiados al portapapeles");
+}
+</script>
+
+</body>
+</html>

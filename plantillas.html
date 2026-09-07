@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestor de Plantillas QF</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f5f5f5;
+}
+
+header{
+    background:#003366;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+select,input,textarea,button{
+    width:100%;
+    margin-top:8px;
+    margin-bottom:12px;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
+}
+
+textarea{
+    min-height:100px;
+}
+
+button{
+    cursor:pointer;
+    background:#003366;
+    color:white;
+    border:none;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.historial-item{
+    border:1px solid #ddd;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:5px;
+}
+
+.historial-item button{
+    margin-top:5px;
+}
+
+.actions{
+    display:flex;
+    gap:5px;
+}
+
+.actions button{
+    flex:1;
+}
+
+.dark-mode{
+    background:#121212;
+    color:#ffffff;
+}
+
+.dark-mode .card{
+    background:#1e1e1e;
+    color:white;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select{
+    background:#2b2b2b;
+    color:white;
+    border:1px solid #555;
+}
+
+.dark-mode button{
+    background:#0d6efd;
+}
+
+.oculto{
+    display:none;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h2>Gestor de Plantillas QF</h2>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<label>Seleccionar Plantilla</label>
+<select id="plantillaSelector">
+    <option value="llamada">Llamada Normal</option>
+    <option value="ticket">Ticket</option>
+    <option value="cierre">Cierre Service Manager</option>
+</select>
+
+<div style="display:flex;gap:10px;margin-top:10px;">
+    <button type="button" onclick="copiarPlantilla()">
+        📋 Copiar Plantilla
+    </button>
+
+    <button type="button" onclick="toggleDarkMode()">
+        🌙 Modo Oscuro
+    </button>
+
+    <button type="button" onclick="toggleHistorial()">
+        📂 Ocultar Historial
+    </button>
+</div>
+
+<form id="formulario"></form>
+
+<button onclick="guardarPlantilla()">
+Guardar en Historial
+</button>
+
+</div>
+
+<div class="card oculto" id="panelHistorial">
+<h3>Historial</h3>
+<div id="historial"></div>
+</div>
+
+</div>
+
+<script>
+
+const plantillas = {
+
+llamada: [
+["qf","QF","Ej. QF-123456"],
+["nombre","Nombre de quien llama","Nombre completo"],
+["numero","Número del que llama","Número telefónico"],
+["nd","ND que reporta","ND reportado"],
+["empresa","Nombre de la empresa","Empresa"],
+["celular","Celular de contacto","Celular"],
+["id","ID (NCLI)","NCLI"],
+["correo","Correo","correo@empresa.com"],
+["comentario","Comentario","Detalle del caso",true]
+],
+
+ticket: [
+["ticket","Id Ticket","Número de ticket"],
+["asunto","Asunto","Asunto del ticket"],
+["usuario","Usuario","Usuario"],
+["qf","QF","Ej. QF-123456"],
+["medio","Medio de contacto","Ticketera 360"],
+["empresa","Nombre de empresa","Empresa"],
+["solicita","Nombre de quien solicita","Nombre"],
+["correo","Correo","correo@empresa.com"],
+["nd","ND del inconveniente","ND"],
+["contactos","Contactos","Información de contacto"],
+["solicitud","Solicita","Descripción"],
+["comentario","Comentario","Detalle",true]
+],
+
+cierre: [
+["nombre","Nombre de quien llama","Nombre"],
+["nd","ND que reporta","ND"],
+["empresa","Nombre de la empresa","Empresa"],
+["sd","SD","SD"],
+["f","F","F"],
+["celular","Celular de contacto","Número"],
+["correo","Correo","correo@empresa.com"],
+["comentario","Comentario","Detalle",true],
+["qf","QF","Número QF"]
+]
+
+};
+
+let datosTemporales = {
+llamada:{},
+ticket:{},
+cierre:{}
+};
+
+const form = document.getElementById("formulario");
+const selector = document.getElementById("plantillaSelector");
+
+function guardarTemporal(){
+
+const actual = selector.value;
+
+const inputs = form.querySelectorAll("input, textarea");
+
+datosTemporales[actual]={};
+
+inputs.forEach(i=>{
+datosTemporales[actual][i.name]=i.value;
+});
+
+}
+
+function cargarFormulario(tipo){
+
+form.innerHTML="";
+
+plantillas[tipo].forEach(campo=>{
+
+const label = document.createElement("label");
+label.textContent = campo[1];
+
+let input;
+
+if(campo[3]){
+input = document.createElement("textarea");
+}else{
+input = document.createElement("input");
+}
+
+input.name = campo[0];
+input.placeholder = campo[2];
+
+if(datosTemporales[tipo][campo[0]]){
+input.value = datosTemporales[tipo][campo[0]];
+}
+
+input.addEventListener("input",guardarTemporal);
+
+form.appendChild(label);
+form.appendChild(input);
+
+});
+
+if(tipo==="cierre"){
+
+const texto=document.createElement("p");
+
+texto.innerHTML=
+`<strong>
+SE PROCEDE CON CIERRE DE TICKET POR PÉRDIDA DE FLUJO QF-${datosTemporales.cierre.qf || ""}
+</strong>`;
+
+form.appendChild(texto);
+
+}
+}
+
+selector.addEventListener("change",()=>{
+
+guardarTemporal();
+cargarFormulario(selector.value);
+
+});
+
+cargarFormulario("llamada");
+
+function guardarPlantilla(){
+
+guardarTemporal();
+
+const tipo = selector.value;
+
+const historial =
+JSON.parse(localStorage.getItem("historialPlantillas")) || [];
+
+historial.unshift({
+id: Date.now(),
+tipo: tipo,
+datos: {...datosTemporales[tipo]},
+fecha: new Date().toLocaleString()
+});
+
+localStorage.setItem(
+"historialPlantillas",
+JSON.stringify(historial)
+);
+
+mostrarHistorial();
+
+alert("Plantilla guardada");
+}
+
+function mostrarHistorial(){
+
+const contenedor =
+document.getElementById("historial");
+
+const historial =
+JSON.parse(localStorage.getItem("historialPlantillas")) || [];
+
+contenedor.innerHTML="";
+
+historial.forEach(item=>{
+
+const div=document.createElement("div");
+div.className="historial-item";
+
+div.innerHTML=`
+<b>${item.tipo.toUpperCase()}</b><br>
+${item.fecha}
+`;
+
+const acciones=document.createElement("div");
+acciones.className="actions";
+
+const cargar=document.createElement("button");
+cargar.textContent="Cargar";
+
+cargar.onclick=()=>{
+
+datosTemporales[item.tipo] =
+{...item.datos};
+
+selector.value=item.tipo;
+
+cargarFormulario(item.tipo);
+
+};
+
+const duplicar=document.createElement("button");
+duplicar.textContent="Duplicar";
+
+duplicar.onclick=()=>{
+
+const historialActual =
+JSON.parse(localStorage.getItem("historialPlantillas")) || [];
+
+historialActual.unshift({
+id:Date.now(),
+tipo:item.tipo,
+datos:{...item.datos},
+fecha:new Date().toLocaleString()
+});
+
+localStorage.setItem(
+"historialPlantillas",
+JSON.stringify(historialActual)
+);
+
+mostrarHistorial();
+
+};
+
+const eliminar=document.createElement("button");
+eliminar.textContent="Eliminar";
+
+eliminar.onclick=()=>{
+
+const nuevo =
+historial.filter(x=>x.id!==item.id);
+
+localStorage.setItem(
+"historialPlantillas",
+JSON.stringify(nuevo)
+);
+
+mostrarHistorial();
+
+};
+
+acciones.appendChild(cargar);
+acciones.appendChild(duplicar);
+acciones.appendChild(eliminar);
+
+div.appendChild(acciones);
+
+contenedor.appendChild(div);
+
+});
+
+}
+
+mostrarHistorial();
+
+function copiarPlantilla(){
+
+    guardarTemporal();
+
+    const tipo = selector.value;
+    const datos = datosTemporales[tipo];
+
+    let texto = "";
+
+    if(tipo==="llamada"){
+
+        texto =
+`QF-${datos.qf || ""}
+
+NOMBRE DE QUIEN LLAMA: ${datos.nombre || ""}
+NÚMERO DEL QUE LLAMA: ${datos.numero || ""}
+ND QUE REPORTA: ${datos.nd || ""}
+NOMBRE DE LA EMPRESA: ${datos.empresa || ""}
+CELULAR DE CONTACTO: ${datos.celular || ""}
+ID (NCLI): ${datos.id || ""}
+CORREO: ${datos.correo || ""}
+COMENTARIO: ${datos.comentario || ""}`;
+
+    }
+
+    else if(tipo==="ticket"){
+
+        texto =
+`Id Ticket: ${datos.ticket || ""}
+Asunto: ${datos.asunto || ""}
+Usuario: ${datos.usuario || ""}
+
+QF-${datos.qf || ""}
+
+Medio de contacto: Ticketera 360
+Nombre de empresa: ${datos.empresa || ""}
+Nombre de quien solicita: ${datos.solicita || ""}
+Correo: ${datos.correo || ""}
+ND del inconveniente: ${datos.nd || ""}
+Contactos: ${datos.contactos || ""}
+Solicita: ${datos.solicitud || ""}
+
+Comentario:
+${datos.comentario || ""}`;
+    }
+
+else if(tipo==="cierre"){
+
+texto =
+`NOMBRE DE QUIEN LLAMA: ${datos.nombre || ""}
+ND QUE REPORTA: ${datos.nd || ""}
+NOMBRE DE LA EMPRESA: ${datos.empresa || ""}
+SD: ${datos.sd || ""}
+F: ${datos.f || ""}
+CELULAR DE CONTACTO: ${datos.celular || ""}
+CORREO: ${datos.correo || ""}
+COMENTARIO: ${datos.comentario || ""}
+
+SE PROCEDE CON CIERRE DE TICKET POR PÉRDIDA DE FLUJO QF-${datos.qf || ""}`;
+
+}
+
+    navigator.clipboard.writeText(texto);
+
+    alert("Plantilla copiada al portapapeles");
+}
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark-mode");
+
+    localStorage.setItem(
+        "darkMode",
+        document.body.classList.contains("dark-mode")
+    );
+}
+
+if(localStorage.getItem("darkMode")==="true"){
+    document.body.classList.add("dark-mode");
+}
+
+function toggleHistorial(){
+
+    const panel =
+    document.getElementById("panelHistorial");
+
+    panel.classList.toggle("oculto");
+
+}
+</script>
+
+</body>
+</html>

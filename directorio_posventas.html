@@ -7,16 +7,10 @@
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
 body{
-    background:#f4f6f9;
-    padding:20px;
+    font-family: Arial, sans-serif;
+    margin:20px;
+    background:#f5f5f5;
 }
 
 h1{
@@ -141,10 +135,75 @@ h1{
     background:#007bff;
 }
 
+.menu{
+    background:#000000;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo a{
+    color:white;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.menu ul{
+    list-style:none;
+    display:flex;
+}
+
+.menu ul li{
+    margin-left:20px;
+}
+
+.menu ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.menu ul li a:hover{
+    color:#f1c40f;
+}
+
+@media(max-width:768px){
+    .menu{
+        flex-direction:column;
+    }
+
+    .menu ul{
+        margin-top:10px;
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .menu ul li{
+        margin:10px 0;
+    }
+}
+
 </style>
 </head>
 
 <body>
+
+    <nav class="menu">
+    <div class="logo">
+        <a href="directorio_posventas.html">Directorio de Posventas</a>
+    </div>
+
+    <ul>
+        <li><a href="directorio_posventas.html">Directorio de Posventas</a></li>
+        <li><a href="enlaces.html">Enlaces</a></li>
+        <li><a href="reemplazo_sim.html">Reemplazos de SIM</a></li>
+        <li><a href="firmador_automatico_robo.html">Firma en Reporte de Robo</a></li>
+        <li><a href="facturas.html">Facturas</a></li>
+    </ul>
+</nav>
 
 <h1>Directorio Corporativo Claro</h1>
 
@@ -367,22 +426,6 @@ placeholder="Buscar nombre, cargo, correo, celular o distribuidor...">
     <div class="card">
         <div class="segmento4">Ejecutivos Posventa</div>
 
-        <div class="nombre">Cristhian Eduardo Escobar</div>
-
-        <div class="info">📧 cristhian.escobar@claro.com.sv</div>
-
-        <div class="info">📱 79866428</div>
-
-        <div class="botones">
-            <a href="tel:79866428" class="btn llamar">Llamar</a>
-            <a href="mailto:cristhian.escobar@claro.com.sv" class="btn correo">Correo</a>
-        </div>
-    </div>
-
-        <!-- CONTACTO -->
-    <div class="card">
-        <div class="segmento4">Ejecutivos Posventa</div>
-
         <div class="nombre">Joel Payés</div>
 
         <div class="info">📧 joele.payes@claro.com.sv</div>
@@ -535,7 +578,7 @@ placeholder="Buscar nombre, cargo, correo, celular o distribuidor...">
 
         <div class="info">📱 76098503</div>
 
-        <div class="info">🏢 FKAMENCO</div>
+        <div class="info">🏢 FLAMENCO</div>
 
         <div class="botones">
             <a href="tel:76098503" class="btn llamar">Llamar</a>
@@ -622,7 +665,7 @@ placeholder="Buscar nombre, cargo, correo, celular o distribuidor...">
 
         <div class="info">📧 katherine.sanchez@claro.com.sv</div>
 
-        <div class="info">📱 78595250</div>
+        <div class="info">📱 77496112</div>
 
         <div class="info">🏢 E-SMART</div>
 
@@ -652,17 +695,17 @@ placeholder="Buscar nombre, cargo, correo, celular o distribuidor...">
     <div class="card">
         <div class="segmento5">Ejecutivos Posventa Distribuidor</div>
 
-        <div class="nombre">Vacante</div>
+        <div class="nombre">Cristhian Eduardo Escobar</div>
 
-        <div class="info">📧 NA</div>
+        <div class="info">📧 cristhian.escobar@claro.com.sv</div>
 
-        <div class="info">📱 NA</div>
+        <div class="info">📱 79866428</div>
 
         <div class="info">🏢 HABLEMOS</div>
 
         <div class="botones">
-            <a href="tel:77496112" class="btn llamar">Llamar</a>
-            <a href="mailto:hillary.cortezs@claro.com.sv" class="btn correo">Correo</a>
+            <a href="tel:79866428" class="btn llamar">Llamar</a>
+            <a href="mailto:cristhian.escobar@claro.com.sv" class="btn correo">Correo</a>
         </div>
     </div>
 

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firmador Automático Claro</title>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:20px;
+    background:#f5f5f5;
+}
+
+input,button{display:block;margin:15px 0}
+button{padding:12px 20px;background:#0d6efd;color:#fff;border:0;border-radius:6px}
+
+.menu{
+    background:#2c3e50;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo a{
+    color:white;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.menu ul{
+    list-style:none;
+    display:flex;
+}
+
+.menu ul li{
+    margin-left:20px;
+}
+
+.menu ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.menu ul li a:hover{
+    color:#f1c40f;
+}
+
+@media(max-width:768px){
+    .menu{
+        flex-direction:column;
+    }
+
+    .menu ul{
+        margin-top:10px;
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .menu ul li{
+        margin:10px 0;
+    }
+}
+</style>
+</head>
+<body>
+    <nav class="menu">
+    <div class="logo">
+        <a href="firmador_automatico_robo.html">Firma en Reporte de Robo</a>
+    </div>
+
+    <ul>
+        <li><a href="directorio_posventas.html">Directorio de Posventas</a></li>
+        <li><a href="enlaces.html">Enlaces</a></li>
+        <li><a href="reemplazo_sim.html">Reemplazos de SIM</a></li>
+        <li><a href="firmador_automatico_robo.html">Firma en Reporte de Robo</a></li>
+        <li><a href="facturas.html">Facturas</a></li>
+    </ul>
+</nav>
+
+<h2>Firmador Automático</h2>
+<p>Diseñado para el formulario de robo/extravío de Claro.</p>
+<input type="file" id="pdf" accept=".pdf">
+<input type="file" id="firma" accept="image/*">
+<button onclick="firmar()">Firmar y descargar</button>
+<script>
+async function firmar(){
+const pdfFile=document.getElementById('pdf').files[0];
+const firmaFile=document.getElementById('firma').files[0];
+if(!pdfFile||!firmaFile){alert('Seleccione PDF y firma');return;}
+const pdfBytes=await pdfFile.arrayBuffer();
+const imgBytes=await firmaFile.arrayBuffer();
+const pdfDoc=await PDFLib.PDFDocument.load(pdfBytes);
+const page=pdfDoc.getPages()[0];
+const w=page.getWidth();
+const h=page.getHeight();
+let img;
+if((firmaFile.type||'').includes('png')) img=await pdfDoc.embedPng(imgBytes);
+else img=await pdfDoc.embedJpg(imgBytes);
+
+const firmaW=w*0.22;
+const firmaH=firmaW*(img.height/img.width);
+const x=w*0.19;
+const y=h*0.43;
+
+// Ocultar sección "Gestor:"
+page.drawRectangle({
+x: w * 0.10, // Ajustar según ubicación real
+y: h * 0.15, // Ajustar según ubicación real
+width: w * 0.25, // Ancho del área a cubrir
+height: 25,
+color: PDFLib.rgb(1,1,1) // Blanco
+});
+
+// Ocultar sección "Campo de texto"
+page.drawRectangle({
+x: w * 0.645, // Ajustar según ubicación real
+y: h * 0.578, // Ajustar según ubicación real
+width: w * 0.27, // Ancho del área a cubrir
+height: 28,
+color: PDFLib.rgb(1,1,1) // Blanco
+});
+
+page.drawImage(img,{x,y,width:firmaW,height:firmaH});
+const out=await pdfDoc.save();
+const blob=new Blob([out],{type:'application/pdf'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download=pdfFile.name.replace('.pdf','')+'_firmado.pdf';
+a.click();
+setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+</script>
+</body>
+</html>

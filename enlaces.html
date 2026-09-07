@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enlaces</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    margin:20px;
+    background:#f5f5f5;
+}
+
+h1{
+    text-align:center;
+    color:#d52b1e;
+    margin-bottom:20px;
+}
+
+#buscador{
+    width:100%;
+    max-width:600px;
+    margin:0 auto 25px;
+    display:block;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+}
+
+.contenedor{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    padding:18px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.segmento{
+    background:#ff0000;
+    color:white;
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.segmento2{
+    background:#0000ff;
+    color:white;
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.segmento3{
+    background:#007700;
+    color:white;
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.segmento4{
+    background:#9b1ed5;
+    color:white;
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.segmento5{
+    background:#005f57;
+    color:white;
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.nombre{
+    font-size:20px;
+    font-weight:bold;
+    color:#333;
+    margin-bottom:10px;
+}
+
+.info{
+    margin-bottom:8px;
+    color:#555;
+}
+
+.botones{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    flex:1;
+    text-align:center;
+    color:white;
+    text-decoration:none;
+    padding:10px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.llamar{
+    background:#28a745;
+}
+
+.correo{
+    background:#007bff;
+}
+
+.menu{
+    background:#2c3e50;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo a{
+    color:white;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.menu ul{
+    list-style:none;
+    display:flex;
+}
+
+.menu ul li{
+    margin-left:20px;
+}
+
+.menu ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.menu ul li a:hover{
+    color:#f1c40f;
+}
+
+@media(max-width:768px){
+    .menu{
+        flex-direction:column;
+    }
+
+    .menu ul{
+        margin-top:10px;
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .menu ul li{
+        margin:10px 0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="menu">
+    <div class="logo">
+        <a href="enlaces.html">Enlaces</a>
+    </div>
+
+    <ul>
+        <li><a href="directorio_posventas.html">Directorio de Posventas</a></li>
+        <li><a href="enlaces.html">Enlaces</a></li>
+        <li><a href="reemplazo_sim.html">Reemplazos de SIM</a></li>
+        <li><a href="firmador_automatico_robo.html">Firma en Reporte de Robo</a></li>
+        <li><a href="facturas.html">Facturas</a></li>
+    </ul>
+</nav>
+
+<h1>Enlaces</h1>
+
+<input
+type="text"
+id="buscador"
+placeholder="Buscar nombre, cargo, correo, celular o distribuidor...">
+
+<div class="contenedor" id="contenedor">
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">D-Analytics</div>
+        <div class="botones">
+            <a href="https://cabecar.avdcloud.com/DAnalyticsSV_CLARO_Prod" target="_blank" class="btn correo">D-Analytics</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">PCRF</div>
+        <div class="botones">
+            <a href="https://pcrfportalpublico.claro.com.gt/signIn" target="_blank" class="btn correo">PCRF</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Agent</div>
+        <div class="botones">
+            <a href="http://45.55.232.37:8080/login" target="_blank" class="btn correo">Agent</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Oda</div>
+        <div class="botones">
+            <a href="http://192.168.8.212:8084/default.asp" target="_blank" class="btn correo">Oda</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Portal Perifericos</div>
+        <div class="botones">
+            <a href="http://172.21.201.14:6503/portal-perifericos-crm-sv/#/login" target="_blank"  class="btn correo">Portal Perifericos</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Axiros</div>
+        <div class="botones">
+            <a href="http://axess.americamovil.ca1:9673/live/AXCustomerSupportPortal/#/login?tab=WANDiag" target="_blank"  class="btn correo">Axiros</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Excel - PPH BO Santa Ana</div>
+        <div class="botones">
+            <a href="https://claroamericamovilca1-my.sharepoint.com/:x:/r/personal/guillermof_cortez_aliados_claro_com_sv/_layouts/15/Doc.aspx?sourcedoc=%7BC8F7C98C-563B-42B6-B53C-35D54E26A6D6%7D&file=PPH%20BO%20Santa%20Ana.xlsx&action=default&mobileredirect=true" target="_blank" class="btn correo">PPH BO Santa Ana</a>
+        </div>
+    </div>
+
+<!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Portal Corporativo</div>
+        <div class="botones">
+            <a href="http://172.23.21.219:8080/portalcorp_pv/login_form.php" target="_blank" class="btn correo">Portal Corporativo</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Excel - Credenciales</div>
+        <div class="botones">
+            <a href="https://docs.google.com/spreadsheets/d/1QwKLu5Vhmvw74RZPgEByoliXth0_zZ9O/edit?gid=1149837357#gid=1149837357" target="_blank" class="btn correo">Credenciales</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Consulta Movil</div>
+        <div class="botones">
+            <a href="http://172.24.55.76:8282/consultaMovil/inicio/index.php" target="_blank" class="btn correo">Consulta Movil</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Back Office 360</div>
+        <div class="botones">
+            <a href="http://172.23.12.156:8080/bo360/login.php" target="_blank" class="btn correo">Back Office 360</a>
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Siare</div>
+        <div class="botones">
+            <a href="http://172.16.204.213:5013/SIARE/faces/index.jsf" target="_blank" class="btn correo">Siare</a>
+        </div>
+    </div>
+
+        <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Pulse</div>
+        <div class="botones">
+            <a href="https://pulseapius.concentrix.com/login?signin=2d9cc5b70182dcbc39f5dc339a73b4a1" target="_blank" class="btn correo">Pulse</a>
+        </div>
+    </div>
+
+        <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Restablecimiento de Contraseña Concentrix</div>
+        <div class="botones">
+            <a href="https://pwd-reset.concentrix.com/showLogin.cc" target="_blank" class="btn correo">Correo</a>
+        </div>
+    </div>
+
+        <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Word - Backoffice Corporativo</div>
+        <div class="botones">
+            <a href="https://docs.google.com/document/d/1ilGjWPguVP_Nk2GcDsJDBjuMD7NSbNsXMDBmVcB8QcI/edit?tab=t.0#heading=h.ynt443k9lq4s" target="_blank" class="btn correo">Backoffice Corporativo</a>
+        </div>
+    </div>
+
+        <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Gui de Claro Video</div>
+        <div class="botones">
+            <a href="http://clarovideo.sac.claro.com.sv:5503/ClaroVideoSv/index.jsp" target="_blank" class="btn correo">Gui de Claro Video</a>
+        </div>
+    </div>
+
+        <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Excel - Cierre de Tickets SM</div>
+        <div class="botones">
+            <a href="https://claroamericamovilca1-my.sharepoint.com/:x:/r/personal/garcia_abraham_aliados_claro_com_sv/_layouts/15/Doc.aspx?action=edit&sourcedoc=%7B3e43a74b-250f-4a67-92a1-6fa20896c135%7D&wdExp=TEAMS-TREATMENT&web=1" target="_blank" class="btn correo">Cierre de Tickets SM</a>
+        </div>
+    </div>
+
+        <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Factibilidad</div>
+        <div class="botones">
+            <a href="http://172.24.55.76/factibilidad_tecnica/index.php" target="_blank" class="btn correo">Factibilidad</a>
+        </div>
+    </div>
+
+            <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Solvnow</div>
+        <div class="botones">
+            <a href="https://solvnow.com/?lang=es" target="_blank" class="btn correo">Solvnow</a>
+        </div>
+    </div>
+
+            <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Gevenue webclientel</div>
+        <div class="botones">
+            <a href="http://webclientel/Gevenue.WebStation/login.aspx?ReturnUrl=%2fGevenue.WebStation%2fMenu.aspx" target="_blank" class="btn correo">Gevenue webclientel</a>
+        </div>
+    </div>
+
+            <!-- CONTACTO -->
+    <div class="card">
+        <div class="nombre">Gevenue webclientsvcallcenter</div>
+        <div class="botones">
+            <a href="http://webclientsvcallcenter/Gevenue.WebStation/Login.aspx" target="_blank" class="btn correo">Gevenue webclientsvcallcenter</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+const buscador = document.getElementById("buscador");
+
+buscador.addEventListener("keyup", () => {
+
+    const filtro = buscador.value.toLowerCase();
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        const texto = card.textContent.toLowerCase();
+
+        card.style.display =
+            texto.includes(filtro)
+            ? "block"
+            : "none";
+    });
+
+});
+
+</script>
+
+</body>
+</html>

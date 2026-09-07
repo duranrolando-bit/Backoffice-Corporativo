@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Código de País</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscar Código de País</h1>
+    <input list="countries" id="searchInput" placeholder="Ingresa el nombre del país o ciudad">
+    <datalist id="countries">
+        <option value="Afganistán">
+        <option value="Albania">
+        <option value="Argelia">
+        <option value="Andorra">
+        <option value="Angola">
+        <option value="Antigua y Barbuda">
+        <option value="Argentina">
+        <option value="Armenia">
+        <option value="Australia">
+        <option value="Austria">
+        <option value="Azerbaiyán">
+        <option value="Bahamas">
+        <option value="Bangladés">
+        <option value="Barbados">
+        <option value="Baréin">
+        <option value="Bélgica">
+        <option value="Belice">
+        <option value="Benín">
+        <option value="Bermudas">
+        <option value="Bielorrusia">
+        <option value="Bolivia">
+        <option value="Bosnia y Herzegovina">
+        <option value="Botsuana">
+        <option value="Brasil">
+        <option value="Brunéi">
+        <option value="Bulgaria">
+        <option value="Burkina Faso">
+        <option value="Burundi">
+        <option value="Bután">
+        <option value="Cabo Verde">
+        <option value="Camboya">
+        <option value="Camerún">
+        <option value="Canadá">
+        <option value="Catar">
+        <option value="Chad">
+        <option value="Chile">
+        <option value="China">
+        <option value="Chipre">
+        <option value="Colombia">
+        <option value="Comoras">
+        <option value="Congo">
+        <option value="Corea del Norte">
+        <option value="Corea del Sur">
+        <option value="Costa Rica">
+        <option value="Croacia">
+        <option value="Cuba">
+        <option value="Dinamarca">
+        <option value="Dominica">
+        <option value="Ecuador">
+        <option value="Egipto">
+        <option value="El Salvador">
+        <option value="Emiratos Árabes Unidos">
+        <option value="Eritrea">
+        <option value="Eslovaquia">
+        <option value="Eslovenia">
+        <option value="España">
+        <option value="Estados Unidos">
+        <option value="Estonia">
+        <option value="Etiopía">
+        <option value="Filipinas">
+        <option value="Finlandia">
+        <option value="Fiyi">
+        <option value="Francia">
+        <option value="Gabón">
+        <option value="Gambia">
+        <option value="Georgia">
+        <option value="Ghana">
+        <option value="Granada">
+        <option value="Grecia">
+        <option value="Guatemala">
+        <option value="Guinea">
+        <option value="Guinea-Bisáu">
+        <option value="Guinea Ecuatorial">
+        <option value="Guyana">
+        <option value="Haití">
+        <option value="Honduras">
+        <option value="Hungría">
+        <option value="India">
+        <option value="Indonesia">
+        <option value="Irak">
+        <option value="Irán">
+        <option value="Irlanda">
+        <option value="Islandia">
+        <option value="Islas Marshall">
+        <option value="Islas Salomón">
+        <option value="Israel">
+        <option value="Italia">
+        <option value="Jamaica">
+        <option value="Japón">
+        <option value="Jordania">
+        <option value="Kazajistán">
+        <option value="Kenia">
+        <option value="Kirguistán">
+        <option value="Kiribati">
+        <option value="Kuwait">
+        <option value="Laos">
+        <option value="Lesoto">
+        <option value="Letonia">
+        <option value="Líbano">
+        <option value="Liberia">
+        <option value="Libia">
+        <option value="Liechtenstein">
+        <option value="Lituania">
+        <option value="Luxemburgo">
+        <option value="Macedonia del Norte">
+        <option value="Madagascar">
+        <option value="Malasia">
+        <option value="Malaui">
+        <option value="Maldivas">
+        <option value="Malí">
+        <option value="Malta">
+        <option value="Marruecos">
+        <option value="Mauricio">
+        <option value="Mauritania">
+        <option value="México">
+        <option value="Micronesia">
+        <option value="Moldavia">
+        <option value="Mónaco">
+        <option value="Mongolia">
+        <option value="Montenegro">
+        <option value="Mozambique">
+        <option value="Namibia">
+        <option value="Nauru">
+        <option value="Nepal">
+        <option value="Nicaragua">
+        <option value="Níger">
+        <option value="Nigeria">
+        <option value="Noruega">
+        <option value="Nueva Zelanda">
+        <option value="Omán">
+        <option value="Países Bajos">
+        <option value="Pakistán">
+        <option value="Palaos">
+        <option value="Panamá">
+        <option value="Papúa Nueva Guinea">
+        <option value="Paraguay">
+        <option value="Perú">
+        <option value="Polonia">
+        <option value="Portugal">
+        <option value="Reino Unido">
+        <option value="República Centroafricana">
+        <option value="República Checa">
+        <option value="República Dominicana">
+        <option value="Ruanda">
+        <option value="Rumania">
+        <option value="Rusia">
+        <option value="Samoa">
+        <option value="San Cristóbal y Nieves">
+        <option value="San Marino">
+        <option value="San Vicente y las Granadinas">
+        <option value="Santa Lucía">
+        <option value="Santo Tomé y Príncipe">
+        <option value="Senegal">
+        <option value="Serbia">
+        <option value="Seychelles">
+        <option value="Sierra Leona">
+        <option value="Singapur">
+        <option value="Siria">
+        <option value="Somalia">
+        <option value="Sri Lanka">
+        <option value="Suazilandia">
+        <option value="Sudáfrica">
+        <option value="Sudán">
+        <option value="Suecia">
+        <option value="Suiza">
+        <option value="Surinam">
+        <option value="Tailandia">
+        <option value="Tanzania">
+        <option value="Tayikistán">
+        <option value="Timor Oriental">
+        <option value="Togo">
+        <option value="Tonga">
+        <option value="Trinidad y Tobago">
+        <option value="Túnez">
+        <option value="Turkmenistán">
+        <option value="Turquía">
+        <option value="Tuvalu">
+        <option value="Ucrania">
+        <option value="Uganda">
+        <option value="Uruguay">
+        <option value="Uzbekistán">
+        <option value="Vanuatu">
+        <option value="Venezuela">
+        <option value="Vietnam">
+        <option value="Yemen">
+        <option value="Yibuti">
+        <option value="Zambia">
+        <option value="Zimbabue">
+    </datalist>
+    <button onclick="searchCountryCode()">Buscar</button>
+    <p id="result"></p>
+
+   <script>
+        const countryCodes = {
+            "Afganistán": "+93",
+            "Albania": "+355",
+            "Argelia": "+213",
+            "Andorra": "+376",
+            "Angola": "+244",
+            "Antigua y Barbuda": "+1-268",
+            "Argentina": "+54",
+            "Armenia": "+374",
+            "Australia": "+61",
+            "Austria": "+43",
+            "Azerbaiyán": "+994",
+            "Bahamas": "+1-242",
+            "Bangladés": "+880",
+            "Barbados": "+1-246",
+            "Baréin": "+973",
+            "Bélgica": "+32",
+            "Belice": "+501",
+            "Benín": "+229",
+            "Bermudas": "+1-441",
+            "Bielorrusia": "+375",
+            "Bolivia": "+591",
+            "Bosnia y Herzegovina": "+387",
+            "Botsuana": "+267",
+            "Brasil": "+55",
+            "Brunéi": "+673",
+            "Bulgaria": "+359",
+            "Burkina Faso": "+226",
+            "Burundi": "+257",
+            "Bután": "+975",
+            "Cabo Verde": "+238",
+            "Camboya": "+855",
+            "Camerún": "+237",
+            "Canadá": "+1",
+            "Catar": "+974",
+            "Chad": "+235",
+            "Chile": "+56",
+            "China": "+86",
+            "Chipre": "+357",
+            "Colombia": "+57",
+            "Comoras": "+269",
+            "Congo": "+242",
+            "Corea del Norte": "+850",
+            "Corea del Sur": "+82",
+            "Costa Rica": "+506",
+            "Croacia": "+385",
+            "Cuba": "+53",
+            "Dinamarca": "+45",
+            "Dominica": "+1-767",
+            "Ecuador": "+593",
+            "Egipto": "+20",
+            "El Salvador": "+503",
+            "Emiratos Árabes Unidos": "+971",
+            "Eritrea": "+291",
+            "Eslovaquia": "+421",
+            "Eslovenia": "+386",
+            "España": "+34",
+            "Estados Unidos": "+1",
+            "Estonia": "+372",
+            "Etiopía": "+251",
+            "Filipinas": "+63",
+            "Finlandia": "+358",
+            "Fiyi": "+679",
+            "Francia": "+33",
+            "Gabón": "+241",
+            "Gambia": "+220",
+            "Georgia": "+995",
+            "Ghana": "+233",
+            "Granada": "+1-473",
+            "Grecia": "+30",
+            "Guatemala": "+502",
+            "Guinea": "+224",
+            "Guinea-Bisáu": "+245",
+            "Guinea Ecuatorial": "+240",
+            "Guyana": "+592",
+            "Haití": "+509",
+            "Honduras": "+504",
+            "Hungría": "+36",
+            "India": "+91",
+            "Indonesia": "+62",
+            "Irak": "+964",
+            "Irán": "+98",
+            "Irlanda": "+353",
+            "Islandia": "+354",
+            "Islas Marshall": "+692",
+            "Islas Salomón": "+677",
+            "Israel": "+972",
+            "Italia": "+39",
+            "Jamaica": "+1-876",
+            "Japón": "+81",
+            "Jordania": "+962",
+            "Kazajistán": "+7",
+            "Kenia": "+254",
+            "Kirguistán": "+996",
+            "Kiribati": "+686",
+            "Kuwait": "+965",
+            "Laos": "+856",
+            "Lesoto": "+266",
+            "Letonia": "+371",
+            "Líbano": "+961",
+            "Liberia": "+231",
+            "Libia": "+218",
+            "Liechtenstein": "+423",
+            "Lituania": "+370",
+            "Luxemburgo": "+352",
+            "Macedonia del Norte": "+389",
+            "Madagascar": "+261",
+            "Malasia": "+60",
+            "Malaui": "+265",
+            "Maldivas": "+960",
+            "Malí": "+223",
+            "Malta": "+356",
+            "Marruecos": "+212",
+            "Mauricio": "+230",
+            "Mauritania": "+222",
+            "México": "+52",
+            "Micronesia": "+691",
+            "Moldavia": "+373",
+            "Mónaco": "+377",
+            "Mongolia": "+976",
+            "Montenegro": "+382",
+            "Mozambique": "+258",
+            "Namibia": "+264",
+            "Nauru": "+674",
+            "Nepal": "+977",
+            "Nicaragua": "+505",
+            "Níger": "+227",
+            "Nigeria": "+234",
+            "Noruega": "+47",
+            "Nueva Zelanda": "+64",
+            "Omán": "+968",
+            "Países Bajos": "+31",
+            "Pakistán": "+92",
+            "Palaos": "+680",
+            "Panamá": "+507",
+            "Papúa Nueva Guinea": "+675",
+            "Paraguay": "+595",
+            "Perú": "+51",
+            "Polonia": "+48",
+            "Portugal": "+351",
+            "Reino Unido": "+44",
+            "República Centroafricana": "+236",
+            "República Checa": "+420",
+            "República Dominicana": "+1-809",
+            "Ruanda": "+250",
+            "Rumania": "+40",
+            "Rusia": "+7",
+            "Samoa": "+685",
+            "San Cristóbal y Nieves": "+1-869",
+            "San Marino": "+378",
+            "San Vicente y las Granadinas": "+1-784",
+            "Santa Lucía": "+1-758",
+            "Santo Tomé y Príncipe": "+239",
+            "Senegal": "+221",
+            "Serbia": "+381",
+            "Seychelles": "+248",
+            "Sierra Leona": "+232",
+            "Singapur": "+65",
+            "Siria": "+963",
+            "Somalia": "+252",
+            "Sri Lanka": "+94",
+            "Suazilandia": "+268",
+            "Sudáfrica": "+27",
+            "Sudán": "+249",
+            "Suecia": "+46",
+            "Suiza": "+41",
+            "Surinam": "+597",
+            "Tailandia": "+66",
+            "Tanzania": "+255",
+            "Tayikistán": "+992",
+            "Timor Oriental": "+670",
+            "Togo": "+228",
+            "Tonga": "+676",
+            "Trinidad y Tobago": "+1-868",
+            "Túnez": "+216",
+            "Turkmenistán": "+993",
+            "Turquía": "+90",
+            "Tuvalu": "+688",
+            "Ucrania": "+380",
+            "Uganda": "+256",
+            "Uruguay": "+598",
+            "Uzbekistán": "+998",
+            "Vanuatu": "+678",
+            "Venezuela": "+58",
+            "Vietnam": "+84",
+            "Yemen": "+967",
+            "Yibuti": "+253",
+            "Zambia": "+260",
+            "Zimbabue": "+263"
+        };
+
+        function searchCountryCode() {
+            const input = document.getElementById('searchInput').value.trim();
+            const result = document.getElementById('result');
+            const code = countryCodes[input];
+
+            if (code) {
+                result.textContent = `El código de país para ${input} es ${code}.`;
+            } else {
+                result.textContent = `No se encontró el código de país para ${input}.`;
+            }
+        }
+    </script>
+</body>
+</html>
