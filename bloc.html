@@ -132,6 +132,28 @@ textarea{
         flex-direction:column;
     }
 }
+
+.mini-timer{
+    width:90px;
+    text-align:center;
+    background:#000000;
+    color:rgb(0, 255, 0);
+    font-weight:bold;
+    padding:8px;
+    border-radius:10px;
+    cursor:pointer;
+    user-select:none;
+    margin-bottom:15px;
+    box-shadow:0 3px 8px rgba(0,0,0,.2);
+}
+
+.mini-timer.running{
+    background:#dc2626;
+}
+
+.mini-timer.finished{
+    background:#16a34a;
+}
 </style>
 </head>
 <body>
@@ -149,6 +171,10 @@ textarea{
 </header>
 
 <div class="tabs" id="tabs"></div>
+
+<div class="mini-timer" id="timerBtn">
+    ⏱ 1:45
+</div>
 
 <textarea id="editor" placeholder="Escribe aquí..."></textarea>
 
@@ -325,6 +351,76 @@ function downloadNote(){
 }
 
 loadNote();
+
+const timerBtn = document.getElementById("timerBtn");
+
+const INITIAL_SECONDS = 105; // 1:45
+
+let remainingSeconds = INITIAL_SECONDS;
+let timerRunning = false;
+let timerInterval = null;
+
+function formatTime(seconds){
+
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+
+    return `${min}:${sec.toString().padStart(2,"0")}`;
+}
+
+function updateTimerUI(){
+
+    timerBtn.textContent =
+        "⏱ " + formatTime(remainingSeconds);
+}
+
+timerBtn.addEventListener("click",()=>{
+
+    if(!timerRunning){
+
+        timerRunning = true;
+
+        timerBtn.classList.add("running");
+
+        timerInterval = setInterval(()=>{
+
+            remainingSeconds--;
+
+            updateTimerUI();
+
+            if(remainingSeconds <= 0){
+
+                clearInterval(timerInterval);
+
+                timerRunning = false;
+
+                timerBtn.classList.remove("running");
+                timerBtn.classList.add("finished");
+
+                timerBtn.textContent = "✅ 0:00";
+
+                alert("Tiempo finalizado");
+            }
+
+        },1000);
+
+    }else{
+
+        clearInterval(timerInterval);
+
+        timerRunning = false;
+
+        remainingSeconds = INITIAL_SECONDS;
+
+        timerBtn.classList.remove("running");
+        timerBtn.classList.remove("finished");
+
+        updateTimerUI();
+    }
+
+});
+
+updateTimerUI();
 
 </script>
 
