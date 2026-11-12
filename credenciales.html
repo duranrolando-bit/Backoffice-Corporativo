@@ -8,29 +8,35 @@
   <link rel="stylesheet" href="sidebar.css">
   <script src="sidebar.js" defer></script>
   <style>
-    :root { color-scheme:light; --ink:#202936; --muted:#667085; --line:#e6e9ef; --red:#d71920; --bg:#f5f7fa; }
+    :root { color-scheme:light; --ink:#202936; --muted:#667085; --line:#e6e9ef; --red:#d71920; --bg:#f5f7fa; --panel:#fff; --field:#fff; --soft:#f7f8fa; --button:#f0f2f5; --button-ink:#344054; --link:#175cd3; --note-bg:#fff9e9; --note-border:#f3d9a5; --note-ink:#75551c; }
+    :root[data-theme="dark"] { color-scheme:dark; --ink:#edf1f7; --muted:#a0a9b8; --line:#384253; --red:#ff555b; --bg:#11151c; --panel:#1b222d; --field:#141a23; --soft:#232c39; --button:#303a49; --button-ink:#e7ebf2; --link:#8ab4ff; --note-bg:#332b1c; --note-border:#66502a; --note-ink:#f3d99e; }
     * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--ink); font-family:Arial,sans-serif; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Arial,sans-serif; transition:background .2s,color .2s; }
     main { max-width:1100px; margin:0 auto; padding:24px; }
     h1 { margin:0; font-size:clamp(26px,4vw,36px); letter-spacing:-.03em; }
+    .page-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; }
     .intro { margin:8px 0 22px; color:var(--muted); line-height:1.55; }
-    .panel { padding:21px; border:1px solid var(--line); border-radius:16px; background:#fff; box-shadow:0 6px 20px #17212d0a; }
-    .security-note { margin:0 0 20px; padding:13px 15px; border:1px solid #f3d9a5; border-radius:11px; background:#fff9e9; color:#75551c; font-size:13px; line-height:1.55; }
+    .panel { padding:21px; border:1px solid var(--line); border-radius:16px; background:var(--panel); box-shadow:0 6px 20px #0000000a; }
+    .security-note { margin:0 0 20px; padding:13px 15px; border:1px solid var(--note-border); border-radius:11px; background:var(--note-bg); color:var(--note-ink); font-size:13px; line-height:1.55; }
     .auth-panel { max-width:520px; margin:36px auto; }
     .auth-panel h2, .panel h2 { margin:0 0 8px; font-size:19px; }
     .auth-copy, .panel-copy { margin:0 0 18px; color:var(--muted); font-size:14px; line-height:1.5; }
-    label { display:block; margin:0 0 7px; color:#344054; font-size:13px; font-weight:700; }
-    input, select { width:100%; min-height:43px; padding:10px 12px; border:1px solid #cfd5df; border-radius:9px; background:#fff; color:var(--ink); font:inherit; }
+    label { display:block; margin:0 0 7px; color:var(--ink); font-size:13px; font-weight:700; }
+    input, select { width:100%; min-height:43px; padding:10px 12px; border:1px solid var(--line); border-radius:9px; background:var(--field); color:var(--ink); font:inherit; }
+    input::placeholder { color:var(--muted); }
     input:focus, select:focus { outline:3px solid #d7192020; border-color:var(--red); }
     .field { margin-bottom:14px; }
-    button { min-height:38px; padding:9px 12px; border:0; border-radius:9px; background:#f0f2f5; color:#344054; font:700 13px Arial,sans-serif; cursor:pointer; }
+    button { min-height:38px; padding:9px 12px; border:0; border-radius:9px; background:var(--button); color:var(--button-ink); font:700 13px Arial,sans-serif; cursor:pointer; }
     button:hover { filter:brightness(.96); }
     button:focus-visible, a:focus-visible { outline:3px solid #d7192050; outline-offset:2px; }
     .primary { background:var(--red); color:#fff; }
     .danger { background:#fff0f0; color:#b42318; }
+    :root[data-theme="dark"] .danger { background:#492b30; color:#ffb4b8; }
     .auth-panel .primary { width:100%; margin-top:3px; }
+    .theme-toggle { display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
     .topbar { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px; }
     .topbar .intro { margin:0; }
+    .top-actions { display:flex; align-items:center; gap:9px; }
     .workspace { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-items:start; }
     .panel h2 { margin-bottom:6px; }
     .panel-copy { margin-bottom:17px; }
@@ -40,33 +46,33 @@
     .list-toolbar h2 { margin:0; }
     .count { color:var(--muted); font-size:13px; white-space:nowrap; }
     .account-list { display:grid; gap:13px; }
-    .account-card { padding:17px; border:1px solid var(--line); border-radius:13px; background:#fff; }
+    .account-card { padding:17px; border:1px solid var(--line); border-radius:13px; background:var(--panel); }
     .account-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
     .account-head h3 { margin:0; overflow-wrap:anywhere; font-size:16px; }
     .account-username { margin:5px 0 0; color:var(--muted); font-size:13px; overflow-wrap:anywhere; }
     .actions { display:flex; gap:7px; flex-wrap:wrap; justify-content:flex-end; }
     .actions button { min-height:32px; padding:7px 9px; font-size:12px; }
-    .credential-row { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:13px; padding-top:12px; border-top:1px solid #f0f1f3; }
+    .credential-row { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:13px; padding-top:12px; border-top:1px solid var(--line); }
     .credential-row span { color:var(--muted); font-size:12px; }
     .credential-row button, .link-actions button { min-height:31px; padding:6px 9px; font-size:12px; }
     .link-list { display:grid; gap:9px; margin-top:14px; }
-    .link-item { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px; border-radius:10px; background:#f7f8fa; }
+    .link-item { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px; border-radius:10px; background:var(--soft); }
     .link-info { min-width:0; }
-    .link-title { display:block; margin-bottom:4px; color:#344054; font-size:13px; font-weight:700; }
-    .link-url { display:block; max-width:100%; overflow-wrap:anywhere; color:#175cd3; font-size:12px; }
+    .link-title { display:block; margin-bottom:4px; color:var(--ink); font-size:13px; font-weight:700; }
+    .link-url { display:block; max-width:100%; overflow-wrap:anywhere; color:var(--link); font-size:12px; }
     .link-actions { display:flex; flex:none; gap:6px; }
     .empty { padding:25px 12px; color:var(--muted); text-align:center; font-size:14px; }
     #toast { position:fixed; right:22px; bottom:22px; z-index:2000; padding:12px 16px; border-radius:10px; background:#202936; color:#fff; box-shadow:0 8px 22px #10182830; font-size:14px; opacity:0; transform:translateY(8px); pointer-events:none; transition:.2s; }
     #toast.visible { opacity:1; transform:translateY(0); }
     [hidden] { display:none !important; }
     @media(max-width:850px) { .workspace { grid-template-columns:1fr; } }
-    @media(max-width:560px) { main { padding:20px 15px; } .panel { padding:17px; } .topbar { align-items:flex-start; flex-direction:column; } .account-head { flex-direction:column; } .actions { justify-content:flex-start; } .link-item { align-items:flex-start; flex-direction:column; } }
+    @media(max-width:560px) { main { padding:20px 15px; } .panel { padding:17px; } .page-heading { align-items:flex-start; } .topbar { align-items:flex-start; flex-direction:column; } .account-head { flex-direction:column; } .actions { justify-content:flex-start; } .link-item { align-items:flex-start; flex-direction:column; } }
   </style>
 </head>
 <body>
   <main>
     <header>
-      <h1>Mis credenciales</h1>
+      <div class="page-heading"><h1>Mis credenciales</h1><button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Activar modo oscuro"><span id="themeIcon" aria-hidden="true">🌙</span><span id="themeLabel">Modo oscuro</span></button></div>
       <p class="intro">Guarda usuarios y contraseñas una sola vez, y asígnalos a todos los enlaces donde los utilizas.</p>
     </header>
     <p class="security-note"><strong>Privacidad:</strong> los datos se cifran en este navegador con una contraseña maestra y no se envían a un servidor. Si borras los datos del navegador o pierdes la contraseña maestra, no podrás recuperar la bóveda. Para cuentas importantes, usa un gestor de contraseñas dedicado.</p>
@@ -82,11 +88,10 @@
     </section>
 
     <section id="vault" hidden>
-      <div class="topbar"><p class="intro">Bóveda desbloqueada en este dispositivo.</p><button type="button" id="lockButton">Bloquear bóveda</button></div>
+      <div class="topbar"><p class="intro">Bóveda desbloqueada en este dispositivo.</p><div class="top-actions"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar tema"><span aria-hidden="true">🌙</span><span>Modo oscuro</span></button><button type="button" id="lockButton">Bloquear bóveda</button></div></div>
       <div class="workspace">
         <section class="panel" aria-labelledby="accountFormTitle">
-          <h2 id="accountFormTitle">Guardar usuario y contraseña</h2>
-          <p class="panel-copy">Crea un perfil de acceso. Luego podrás asociarlo a uno o varios enlaces.</p>
+          <h2 id="accountFormTitle">Guardar usuario y contraseña</h2><p class="panel-copy">Crea un perfil de acceso. Luego podrás asociarlo a uno o varios enlaces.</p>
           <form id="accountForm">
             <div class="field"><label for="accountName">Nombre para identificarlo</label><input id="accountName" maxlength="120" required placeholder="Ej. Usuario de atención"></div>
             <div class="field"><label for="username">Usuario</label><input id="username" maxlength="200" required autocomplete="off" placeholder="Nombre de usuario o correo"></div>
@@ -94,10 +99,8 @@
             <div class="form-actions"><button class="primary" id="saveAccountButton" type="submit">Guardar usuario</button><button type="button" id="cancelAccountEdit" hidden>Cancelar</button></div>
           </form>
         </section>
-
         <section class="panel" aria-labelledby="linkFormTitle">
-          <h2 id="linkFormTitle">Asociar un enlace</h2>
-          <p class="panel-copy">Elige un usuario guardado y agrega un enlace donde se utiliza.</p>
+          <h2 id="linkFormTitle">Asociar un enlace</h2><p class="panel-copy">Elige un usuario guardado y agrega un enlace donde se utiliza.</p>
           <form id="linkForm">
             <div class="field"><label for="accountSelect">Usuario y contraseña</label><select id="accountSelect" required><option value="">Primero guarda un usuario</option></select></div>
             <div class="field"><label for="linkName">Nombre del enlace</label><input id="linkName" maxlength="120" required placeholder="Ej. Portal de operaciones"></div>
@@ -106,7 +109,6 @@
           </form>
         </section>
       </div>
-
       <div class="list-toolbar"><h2>Usuarios guardados</h2><span class="count" id="count">0 usuarios</span></div>
       <div class="field"><label for="search">Buscar usuarios o enlaces</label><input id="search" type="search" placeholder="Buscar por nombre, usuario o enlace…"></div>
       <div class="account-list" id="accountList" aria-live="polite"></div>
@@ -118,121 +120,91 @@
     (() => {
       'use strict';
       const STORAGE_KEY = 'backoffice-credential-vault-v1';
+      const THEME_KEY = 'backoffice-credentials-theme';
       const ITERATIONS = 310000;
       const $ = id => document.getElementById(id);
-      let vaultKey = null;
-      let accounts = [];
-      let editingAccountId = null;
-      let editingLink = null;
-      let toastTimer;
-
+      let vaultKey = null, accounts = [], editingAccountId = null, editingLink = null, toastTimer;
       const encode = bytes => btoa(String.fromCharCode(...new Uint8Array(bytes)));
       const decode = value => Uint8Array.from(atob(value), char => char.charCodeAt(0));
       const getStoredVault = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; } };
       const secureCryptoAvailable = () => Boolean(window.crypto && window.crypto.subtle);
       const showToast = message => { $('toast').textContent = message; $('toast').classList.add('visible'); clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').classList.remove('visible'), 2600); };
+      const applyTheme = theme => {
+        const dark = theme === 'dark'; document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.querySelectorAll('[data-theme-toggle], #themeToggle').forEach(button => {
+          button.setAttribute('aria-pressed', String(dark)); button.setAttribute('aria-label', dark ? 'Activar modo claro' : 'Activar modo oscuro');
+          const icon = button.querySelector('span[aria-hidden="true"]'); const label = button.querySelector('span:not([aria-hidden])');
+          if (icon) icon.textContent = dark ? '☀️' : '🌙'; if (label) label.textContent = dark ? 'Modo claro' : 'Modo oscuro';
+        });
+        try { localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light'); } catch {}
+      };
+      const toggleTheme = () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+      document.querySelectorAll('[data-theme-toggle], #themeToggle').forEach(button => button.addEventListener('click', toggleTheme));
+      let savedTheme = 'light'; try { savedTheme = localStorage.getItem(THEME_KEY) || 'light'; } catch {}
+      applyTheme(savedTheme);
+
       const deriveKey = async (password, salt) => {
         const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
         return crypto.subtle.deriveKey({ name:'PBKDF2', salt, iterations:ITERATIONS, hash:'SHA-256' }, material, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']);
       };
       const saveVault = async () => {
-        const stored = getStoredVault();
-        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const stored = getStoredVault(); const iv = crypto.getRandomValues(new Uint8Array(12));
         const data = new TextEncoder().encode(JSON.stringify({ schema:2, accounts }));
         const ciphertext = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, vaultKey, data);
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ version:1, salt:stored.salt, iv:encode(iv), ciphertext:encode(ciphertext) }));
       };
       const normalizeAccounts = data => {
-        if (Array.isArray(data)) {
-          return data.map((item, index) => ({
-            id:item.id || `migrated-${index}-${Date.now()}`,
-            name:item.name || 'Usuario importado',
-            username:item.username || item.name || '',
-            password:item.password || '',
-            links:item.link ? [{ id:`migrated-link-${index}`, name:item.name || item.link, url:item.link }] : []
-          }));
-        }
+        if (Array.isArray(data)) return data.map((item, index) => ({ id:item.id || `migrated-${index}-${Date.now()}`, name:item.name || 'Usuario importado', username:item.username || item.name || '', password:item.password || '', links:item.link ? [{ id:`migrated-link-${index}`, name:item.name || item.link, url:item.link }] : [] }));
         if (data && data.schema === 2 && Array.isArray(data.accounts)) return data.accounts;
         throw new Error('El contenido de la bóveda no es válido.');
       };
       const configureAuth = () => {
-        const exists = Boolean(getStoredVault());
-        $('authTitle').textContent = exists ? 'Desbloquea tu bóveda' : 'Configura tu contraseña maestra';
+        const exists = Boolean(getStoredVault()); $('authTitle').textContent = exists ? 'Desbloquea tu bóveda' : 'Configura tu contraseña maestra';
         $('authCopy').textContent = exists ? 'Ingresa tu contraseña maestra para consultar tus accesos.' : 'Crea una contraseña maestra de al menos 12 caracteres. Guárdala en un lugar seguro; no se puede recuperar si la olvidas.';
-        $('confirmField').hidden = exists;
-        $('confirmPassword').required = !exists;
-        $('masterPassword').minLength = exists ? 1 : 12;
-        $('masterPassword').autocomplete = exists ? 'current-password' : 'new-password';
-        $('masterPassword').placeholder = exists ? 'Contraseña maestra' : 'Al menos 12 caracteres';
-        $('unlockButton').textContent = exists ? 'Desbloquear bóveda' : 'Crear bóveda';
-        $('authPanel').hidden = false;
-        $('vault').hidden = true;
+        $('confirmField').hidden = exists; $('confirmPassword').required = !exists; $('masterPassword').minLength = exists ? 1 : 12;
+        $('masterPassword').autocomplete = exists ? 'current-password' : 'new-password'; $('masterPassword').placeholder = exists ? 'Contraseña maestra' : 'Al menos 12 caracteres';
+        $('unlockButton').textContent = exists ? 'Desbloquear bóveda' : 'Crear bóveda'; $('authPanel').hidden = false; $('vault').hidden = true;
       };
       const unlock = async password => {
         const stored = getStoredVault();
-        if (!stored) {
-          const salt = crypto.getRandomValues(new Uint8Array(16));
-          vaultKey = await deriveKey(password, salt);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify({ version:1, salt:encode(salt), iv:'', ciphertext:'' }));
-          accounts = [];
-          await saveVault();
-        } else {
+        if (!stored) { const salt = crypto.getRandomValues(new Uint8Array(16)); vaultKey = await deriveKey(password, salt); localStorage.setItem(STORAGE_KEY, JSON.stringify({ version:1, salt:encode(salt), iv:'', ciphertext:'' })); accounts = []; await saveVault(); }
+        else {
           if (stored.version !== 1 || !stored.salt || !stored.iv || !stored.ciphertext) throw new Error('La bóveda guardada no tiene un formato válido.');
-          vaultKey = await deriveKey(password, decode(stored.salt));
-          const cleartext = await crypto.subtle.decrypt({ name:'AES-GCM', iv:decode(stored.iv) }, vaultKey, decode(stored.ciphertext));
-          const parsed = JSON.parse(new TextDecoder().decode(cleartext));
-          accounts = normalizeAccounts(parsed);
-          if (Array.isArray(parsed)) await saveVault();
+          vaultKey = await deriveKey(password, decode(stored.salt)); const cleartext = await crypto.subtle.decrypt({ name:'AES-GCM', iv:decode(stored.iv) }, vaultKey, decode(stored.ciphertext));
+          const parsed = JSON.parse(new TextDecoder().decode(cleartext)); accounts = normalizeAccounts(parsed); if (Array.isArray(parsed)) await saveVault();
         }
-        $('authForm').reset(); $('authPanel').hidden = true; $('vault').hidden = false;
-        refreshAccountSelect(); renderAccounts();
+        $('authForm').reset(); $('authPanel').hidden = true; $('vault').hidden = false; refreshAccountSelect(); renderAccounts();
       };
-      const lock = () => {
-        vaultKey = null; accounts = []; editingAccountId = null; editingLink = null;
-        $('accountForm').reset(); $('linkForm').reset(); configureAuth(); $('masterPassword').focus();
-      };
-      const resetAccountForm = () => {
-        editingAccountId = null; $('accountForm').reset(); $('accountFormTitle').textContent = 'Guardar usuario y contraseña'; $('saveAccountButton').textContent = 'Guardar usuario'; $('cancelAccountEdit').hidden = true;
-      };
-      const resetLinkForm = () => {
-        editingLink = null; $('linkForm').reset(); $('linkFormTitle').textContent = 'Asociar un enlace'; $('saveLinkButton').textContent = 'Agregar enlace'; $('cancelLinkEdit').hidden = true;
-      };
+      const lock = () => { vaultKey = null; accounts = []; editingAccountId = null; editingLink = null; $('accountForm').reset(); $('linkForm').reset(); configureAuth(); $('masterPassword').focus(); };
+      const resetAccountForm = () => { editingAccountId = null; $('accountForm').reset(); $('accountFormTitle').textContent = 'Guardar usuario y contraseña'; $('saveAccountButton').textContent = 'Guardar usuario'; $('cancelAccountEdit').hidden = true; };
+      const resetLinkForm = () => { editingLink = null; $('linkForm').reset(); $('linkFormTitle').textContent = 'Asociar un enlace'; $('saveLinkButton').textContent = 'Agregar enlace'; $('cancelLinkEdit').hidden = true; };
       const refreshAccountSelect = () => {
-        const select = $('accountSelect'); const previous = select.value;
-        select.replaceChildren();
+        const select = $('accountSelect'), previous = select.value; select.replaceChildren();
         const placeholder = document.createElement('option'); placeholder.value = ''; placeholder.textContent = accounts.length ? 'Selecciona un usuario' : 'Primero guarda un usuario'; select.append(placeholder);
         accounts.forEach(account => { const option = document.createElement('option'); option.value = account.id; option.textContent = `${account.name} — ${account.username}`; select.append(option); });
         if (accounts.some(account => account.id === previous)) select.value = previous;
-        select.disabled = accounts.length === 0;
-        $('saveLinkButton').disabled = accounts.length === 0;
+        select.disabled = accounts.length === 0; $('saveLinkButton').disabled = accounts.length === 0;
       };
-      const createButton = (text, className, label, handler) => {
-        const button = document.createElement('button'); button.type = 'button'; button.textContent = text; button.setAttribute('aria-label', label); if (className) button.className = className; button.addEventListener('click', handler); return button;
-      };
+      const createButton = (text, className, label, handler) => { const button = document.createElement('button'); button.type = 'button'; button.textContent = text; button.setAttribute('aria-label', label); if (className) button.className = className; button.addEventListener('click', handler); return button; };
       const copyText = async text => {
         if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
         const field = document.createElement('textarea'); field.value = text; field.setAttribute('readonly',''); field.style.position = 'fixed'; field.style.opacity = '0'; document.body.append(field); field.select();
         const copied = document.execCommand('copy'); field.remove(); if (!copied) throw new Error('Clipboard unavailable');
       };
-      const copyAction = (value, label) => createButton(`Copiar ${label.toLowerCase()}`, '', `Copiar ${label}`, async () => {
-        try { await copyText(value); showToast(`${label} copiado.`); } catch { showToast('No se pudo copiar. Revisa los permisos del navegador.'); }
-      });
+      const copyAction = (value, label) => createButton(`Copiar ${label.toLowerCase()}`, '', `Copiar ${label}`, async () => { try { await copyText(value); showToast(`${label} copiado.`); } catch { showToast('No se pudo copiar. Revisa los permisos del navegador.'); } });
       const renderAccounts = () => {
         const query = $('search').value.trim().toLocaleLowerCase();
         const filtered = accounts.filter(account => `${account.name} ${account.username} ${account.links.map(link => `${link.name} ${link.url}`).join(' ')}`.toLocaleLowerCase().includes(query));
-        $('count').textContent = `${accounts.length} ${accounts.length === 1 ? 'usuario' : 'usuarios'}`;
-        const list = $('accountList'); list.replaceChildren();
+        $('count').textContent = `${accounts.length} ${accounts.length === 1 ? 'usuario' : 'usuarios'}`; const list = $('accountList'); list.replaceChildren();
         if (!filtered.length) { const empty = document.createElement('p'); empty.className = 'empty'; empty.textContent = accounts.length ? 'No hay resultados para la búsqueda.' : 'Todavía no guardas usuarios. Agrega uno con el formulario de arriba.'; list.append(empty); return; }
         filtered.forEach(account => {
-          const card = document.createElement('article'); card.className = 'account-card';
-          const head = document.createElement('div'); head.className = 'account-head';
-          const identity = document.createElement('div'); const title = document.createElement('h3'); title.textContent = account.name; const username = document.createElement('p'); username.className = 'account-username'; username.textContent = `Usuario: ${account.username}`; identity.append(title, username);
+          const card = document.createElement('article'); card.className = 'account-card'; const head = document.createElement('div'); head.className = 'account-head';
+          const identity = document.createElement('div'), title = document.createElement('h3'), username = document.createElement('p'); title.textContent = account.name; username.className = 'account-username'; username.textContent = `Usuario: ${account.username}`; identity.append(title, username);
           const actions = document.createElement('div'); actions.className = 'actions';
-          actions.append(createButton('Editar usuario', '', `Editar usuario ${account.name}`, () => editAccount(account)), createButton('Eliminar usuario', 'danger', `Eliminar usuario ${account.name}`, () => deleteAccount(account)));
-          head.append(identity, actions);
-          const passwordRow = document.createElement('div'); passwordRow.className = 'credential-row'; const passwordHint = document.createElement('span'); passwordHint.textContent = 'Contraseña guardada de forma cifrada'; passwordRow.append(passwordHint, copyAction(account.password, 'contraseña'));
+          actions.append(copyAction(account.username, 'usuario'), createButton('Editar usuario', '', `Editar usuario ${account.name}`, () => editAccount(account)), createButton('Eliminar usuario', 'danger', `Eliminar usuario ${account.name}`, () => deleteAccount(account))); head.append(identity, actions);
+          const passwordRow = document.createElement('div'); passwordRow.className = 'credential-row'; const hint = document.createElement('span'); hint.textContent = 'Contraseña guardada de forma cifrada'; passwordRow.append(hint, copyAction(account.password, 'contraseña'));
           const links = document.createElement('div'); links.className = 'link-list';
-          if (!account.links.length) { const hint = document.createElement('p'); hint.className = 'empty'; hint.style.padding = '12px'; hint.textContent = 'Aún no has asociado enlaces a este usuario.'; links.append(hint); }
+          if (!account.links.length) { const empty = document.createElement('p'); empty.className = 'empty'; empty.style.padding = '12px'; empty.textContent = 'Aún no has asociado enlaces a este usuario.'; links.append(empty); }
           account.links.forEach(link => {
             const item = document.createElement('div'); item.className = 'link-item'; const details = document.createElement('div'); details.className = 'link-info'; const linkName = document.createElement('span'); linkName.className = 'link-title'; linkName.textContent = link.name;
             const anchor = document.createElement('a'); anchor.className = 'link-url'; anchor.href = link.url; anchor.target = '_blank'; anchor.rel = 'noopener noreferrer'; anchor.textContent = link.url; details.append(linkName, anchor);
@@ -241,10 +213,7 @@
           card.append(head, passwordRow, links); list.append(card);
         });
       };
-      const editAccount = account => {
-        editingAccountId = account.id; $('accountName').value = account.name; $('username').value = account.username; $('accountPassword').value = account.password;
-        $('accountFormTitle').textContent = 'Editar usuario y contraseña'; $('saveAccountButton').textContent = 'Guardar cambios'; $('cancelAccountEdit').hidden = false; $('accountName').focus(); window.scrollTo({ top:0, behavior:'smooth' });
-      };
+      const editAccount = account => { editingAccountId = account.id; $('accountName').value = account.name; $('username').value = account.username; $('accountPassword').value = account.password; $('accountFormTitle').textContent = 'Editar usuario y contraseña'; $('saveAccountButton').textContent = 'Guardar cambios'; $('cancelAccountEdit').hidden = false; $('accountName').focus(); window.scrollTo({ top:0, behavior:'smooth' }); };
       const deleteAccount = async account => {
         if (!confirm(`¿Eliminar “${account.name}” y sus ${account.links.length} enlaces asociados? Esta acción no se puede deshacer.`)) return;
         const previous = accounts; accounts = accounts.filter(item => item.id !== account.id);
@@ -255,11 +224,9 @@
         const previous = accounts; accounts = accounts.map(item => item.id === account.id ? { ...item, links:item.links.filter(entry => entry.id !== link.id) } : item);
         try { await saveVault(); renderAccounts(); showToast('Enlace quitado.'); } catch { accounts = previous; showToast('No se pudo guardar el cambio.'); }
       };
-
       $('authForm').addEventListener('submit', async event => {
-        event.preventDefault();
-        if (!secureCryptoAvailable()) { showToast('El cifrado requiere HTTPS o localhost y un navegador compatible.'); return; }
-        const password = $('masterPassword').value; const stored = getStoredVault();
+        event.preventDefault(); if (!secureCryptoAvailable()) { showToast('El cifrado requiere HTTPS o localhost y un navegador compatible.'); return; }
+        const password = $('masterPassword').value, stored = getStoredVault();
         if (!stored && password.length < 12) { showToast('La contraseña maestra debe tener al menos 12 caracteres.'); return; }
         if (!stored && password !== $('confirmPassword').value) { showToast('Las contraseñas maestras no coinciden.'); $('confirmPassword').focus(); return; }
         $('unlockButton').disabled = true;
@@ -267,29 +234,23 @@
         finally { $('unlockButton').disabled = false; $('masterPassword').value = ''; $('confirmPassword').value = ''; }
       });
       $('accountForm').addEventListener('submit', async event => {
-        event.preventDefault();
-        const name = $('accountName').value.trim(); const username = $('username').value.trim(); const password = $('accountPassword').value;
-        const previous = accounts; const existing = editingAccountId && accounts.find(item => item.id === editingAccountId);
+        event.preventDefault(); const name = $('accountName').value.trim(), username = $('username').value.trim(), password = $('accountPassword').value;
+        const previous = accounts, existing = editingAccountId && accounts.find(item => item.id === editingAccountId);
         const account = { id:editingAccountId || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`), name, username, password, links:existing ? existing.links : [] };
         accounts = editingAccountId ? accounts.map(item => item.id === editingAccountId ? account : item) : [...accounts, account];
         try { await saveVault(); resetAccountForm(); refreshAccountSelect(); renderAccounts(); showToast(existing ? 'Usuario actualizado.' : 'Usuario guardado cifrado.'); } catch { accounts = previous; showToast('No se pudo guardar. Comprueba el espacio disponible.'); }
       });
       $('linkForm').addEventListener('submit', async event => {
-        event.preventDefault();
-        const accountId = $('accountSelect').value; const name = $('linkName').value.trim(); const url = $('linkUrl').value.trim();
+        event.preventDefault(); const accountId = $('accountSelect').value, name = $('linkName').value.trim(), url = $('linkUrl').value.trim();
         let parsed; try { parsed = new URL(url); } catch { showToast('Escribe un enlace válido.'); return; }
         if (!['http:','https:'].includes(parsed.protocol)) { showToast('El enlace debe comenzar con http:// o https://.'); return; }
         const target = accounts.find(account => account.id === accountId); if (!target) { showToast('Selecciona un usuario guardado.'); return; }
-        const previous = accounts; const link = { id:editingLink ? editingLink.link.id : (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`), name, url };
+        const previous = accounts, link = { id:editingLink ? editingLink.link.id : (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`), name, url };
         accounts = accounts.map(account => account.id !== accountId ? account : { ...account, links:editingLink ? account.links.map(item => item.id === editingLink.link.id ? link : item) : [...account.links, link] });
         try { await saveVault(); resetLinkForm(); renderAccounts(); showToast(editingLink ? 'Enlace actualizado.' : 'Enlace asociado al usuario.'); } catch { accounts = previous; showToast('No se pudo guardar el enlace.'); }
       });
-      $('cancelAccountEdit').addEventListener('click', resetAccountForm);
-      $('cancelLinkEdit').addEventListener('click', resetLinkForm);
-      $('lockButton').addEventListener('click', lock);
-      $('search').addEventListener('input', renderAccounts);
-      window.addEventListener('pagehide', () => { vaultKey = null; accounts = []; });
-      configureAuth();
+      $('cancelAccountEdit').addEventListener('click', resetAccountForm); $('cancelLinkEdit').addEventListener('click', resetLinkForm); $('lockButton').addEventListener('click', lock); $('search').addEventListener('input', renderAccounts);
+      window.addEventListener('pagehide', () => { vaultKey = null; accounts = []; }); configureAuth();
       if (!secureCryptoAvailable()) showToast('Web Crypto requiere HTTPS o localhost para proteger tus datos.');
     })();
   </script>
