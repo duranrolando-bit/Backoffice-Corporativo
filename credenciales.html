@@ -1,345 +1,341 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enlaces</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-body{
-    background:#f4f6f9;
-    padding:20px;
-}
-
-h1{
-    text-align:center;
-    color:#d52b1e;
-    margin-bottom:20px;
-}
-
-#buscador{
-    width:100%;
-    max-width:600px;
-    margin:0 auto 25px;
-    display:block;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:10px;
-    font-size:16px;
-}
-
-.contenedor{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#fff;
-    border-radius:15px;
-    padding:18px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
-}
-
-.segmento{
-    background:#ff0000;
-    color:white;
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-.segmento2{
-    background:#0000ff;
-    color:white;
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-.segmento3{
-    background:#007700;
-    color:white;
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-.segmento4{
-    background:#9b1ed5;
-    color:white;
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-.segmento5{
-    background:#005f57;
-    color:white;
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-.nombre{
-    font-size:20px;
-    font-weight:bold;
-    color:#333;
-    margin-bottom:10px;
-}
-
-.info{
-    margin-bottom:8px;
-    color:#555;
-}
-
-.botones{
-    margin-top:15px;
-    display:flex;
-    gap:10px;
-}
-
-.btn{
-    flex:1;
-    text-align:center;
-    color:white;
-    text-decoration:none;
-    padding:10px;
-    border-radius:8px;
-    font-size:14px;
-    font-weight:bold;
-}
-
-.llamar{
-    background:#28a745;
-}
-
-.correo{
-    background:#007bff;
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#202b39">
+  <title>Credenciales | Backoffice Corporativo</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <script src="sidebar.js" defer></script>
+  <style>
+    :root { color-scheme: light; --ink:#202936; --muted:#667085; --line:#e6e9ef; --red:#d71920; --bg:#f5f7fa; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Arial,sans-serif; }
+    main { max-width:1100px; margin:0 auto; padding:24px; }
+    h1 { margin:0; font-size:clamp(26px,4vw,36px); letter-spacing:-.03em; }
+    .intro { margin:8px 0 22px; color:var(--muted); line-height:1.55; }
+    .panel { padding:22px; border:1px solid var(--line); border-radius:16px; background:#fff; box-shadow:0 6px 20px #17212d0a; }
+    .security-note { margin:0 0 20px; padding:13px 15px; border:1px solid #f3d9a5; border-radius:11px; background:#fff9e9; color:#75551c; font-size:13px; line-height:1.55; }
+    .auth-panel { max-width:520px; margin:36px auto; }
+    .auth-panel h2, .form-panel h2 { margin:0 0 7px; font-size:19px; }
+    .auth-copy { margin:0 0 18px; color:var(--muted); font-size:14px; line-height:1.5; }
+    label { display:block; margin:0 0 7px; color:#344054; font-size:13px; font-weight:700; }
+    input { width:100%; min-height:44px; padding:11px 12px; border:1px solid #cfd5df; border-radius:9px; background:#fff; color:var(--ink); font:inherit; }
+    input:focus { outline:3px solid #d7192020; border-color:var(--red); }
+    .field { margin-bottom:15px; }
+    .password-wrap { display:flex; gap:8px; }
+    .password-wrap input { flex:1; min-width:0; }
+    button, .button-link { min-height:40px; padding:10px 14px; border:0; border-radius:9px; background:#f0f2f5; color:#344054; font:700 13px Arial,sans-serif; cursor:pointer; text-decoration:none; }
+    button:hover, .button-link:hover { filter:brightness(.96); }
+    button:focus-visible, a:focus-visible { outline:3px solid #d7192050; outline-offset:2px; }
+    .primary { background:var(--red); color:#fff; }
+    .danger { background:#fff0f0; color:#b42318; }
+    .auth-panel .primary { width:100%; margin-top:3px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px; }
+    .top-actions { display:flex; gap:9px; }
+    .vault-layout { display:grid; grid-template-columns:minmax(260px,350px) minmax(0,1fr); align-items:start; gap:18px; }
+    .form-panel h2 { margin-bottom:18px; }
+    .form-actions { display:flex; gap:9px; }
+    .form-actions button { flex:1; }
+    .list-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+    .list-head h2 { margin:0; font-size:19px; }
+    .count { color:var(--muted); font-size:13px; white-space:nowrap; }
+    #search { margin-bottom:14px; }
+    .records { display:grid; gap:12px; }
+    .record { padding:16px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+    .record-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+    .record h3 { margin:0; overflow-wrap:anywhere; font-size:16px; }
+    .record-actions { display:flex; gap:7px; flex-wrap:wrap; justify-content:flex-end; }
+    .record-actions button { min-height:34px; padding:8px 10px; font-size:12px; }
+    .record-data { display:grid; gap:11px; margin-top:15px; }
+    .data-label { display:block; margin-bottom:5px; color:var(--muted); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+    .data-row { display:flex; align-items:center; justify-content:space-between; gap:10px; min-width:0; }
+    .data-value { min-width:0; overflow-wrap:anywhere; color:#344054; font-size:14px; }
+    .data-value a { color:#175cd3; }
+    .data-row button { flex:none; min-height:33px; padding:7px 10px; font-size:12px; }
+    .empty { padding:28px 14px; color:var(--muted); text-align:center; font-size:14px; }
+    #toast { position:fixed; right:22px; bottom:22px; z-index:2000; padding:12px 16px; border-radius:10px; background:#202936; color:#fff; box-shadow:0 8px 22px #10182830; font-size:14px; opacity:0; transform:translateY(8px); pointer-events:none; transition:.2s; }
+    #toast.visible { opacity:1; transform:translateY(0); }
+    [hidden] { display:none !important; }
+    @media(max-width:800px) { .vault-layout { grid-template-columns:1fr; } }
+    @media(max-width:560px) { main { padding:20px 15px; } .panel { padding:17px; } .topbar { align-items:flex-start; flex-direction:column; } .record-top { flex-direction:column; } .record-actions { justify-content:flex-start; } .data-row { align-items:flex-start; } }
+  </style>
 </head>
-
 <body>
+  <main>
+    <header>
+      <h1>Mis credenciales</h1>
+      <p class="intro">Guarda y consulta tus accesos desde este dispositivo. El enlace y la contraseña se pueden copiar con un botón.</p>
+    </header>
 
-<h1>Enlaces</h1>
+    <p class="security-note"><strong>Privacidad:</strong> las credenciales se cifran en este navegador con una contraseña maestra antes de guardarse. No se envían a un servidor. Si borras los datos del navegador o pierdes la contraseña maestra, no podrás recuperar el contenido. Para cuentas importantes, es preferible usar un gestor de contraseñas dedicado.</p>
 
-<input
-type="text"
-id="buscador"
-placeholder="Buscar nombre, cargo, correo, celular o distribuidor...">
-
-<div class="contenedor" id="contenedor">
-
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">D-Analytics</div>
-        <div class="botones">
-            <a href="https://cabecar.avdcloud.com/DAnalyticsSV_CLARO_Prod" target="_blank" class="btn correo">D-Analytics</a>
+    <section class="panel auth-panel" id="authPanel" aria-labelledby="authTitle">
+      <h2 id="authTitle">Configura tu contraseña maestra</h2>
+      <p class="auth-copy" id="authCopy">Crea una contraseña maestra para cifrar tu bóveda. No se puede recuperar si la olvidas.</p>
+      <form id="authForm">
+        <div class="field">
+          <label for="masterPassword">Contraseña maestra</label>
+          <input id="masterPassword" type="password" autocomplete="current-password" required minlength="12" placeholder="Al menos 12 caracteres">
         </div>
-    </div>
-
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">PCRF</div>
-        <div class="botones">
-            <a href="https://pcrfportalpublico.claro.com.gt/signIn" target="_blank" class="btn correo">PCRF</a>
+        <div class="field" id="confirmField">
+          <label for="confirmPassword">Confirma la contraseña maestra</label>
+          <input id="confirmPassword" type="password" autocomplete="new-password" minlength="12" placeholder="Escríbela de nuevo">
         </div>
-    </div>
+        <button class="primary" id="unlockButton" type="submit">Crear bóveda</button>
+      </form>
+    </section>
 
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Agent</div>
-        <div class="botones">
-            <a href="http://45.55.232.37:8080/login" target="_blank" class="btn correo">Agent</a>
-        </div>
-    </div>
+    <section id="vault" hidden>
+      <div class="topbar">
+        <p class="intro" style="margin:0">Bóveda desbloqueada en este dispositivo.</p>
+        <div class="top-actions"><button type="button" id="lockButton">Bloquear bóveda</button></div>
+      </div>
+      <div class="vault-layout">
+        <section class="panel form-panel" aria-labelledby="formTitle">
+          <h2 id="formTitle">Agregar un acceso</h2>
+          <form id="credentialForm">
+            <div class="field">
+              <label for="name">Nombre o usuario</label>
+              <input id="name" name="name" type="text" maxlength="120" required placeholder="Ej. Portal de trabajo">
+            </div>
+            <div class="field">
+              <label for="link">Enlace</label>
+              <input id="link" name="link" type="url" maxlength="2048" required placeholder="https://ejemplo.com">
+            </div>
+            <div class="field">
+              <label for="password">Contraseña</label>
+              <input id="password" name="password" type="password" maxlength="2048" required autocomplete="new-password" placeholder="Escribe la contraseña">
+            </div>
+            <div class="form-actions">
+              <button class="primary" id="saveButton" type="submit">Guardar acceso</button>
+              <button type="button" id="cancelEdit" hidden>Cancelar</button>
+            </div>
+          </form>
+        </section>
+        <section class="panel" aria-labelledby="listTitle">
+          <div class="list-head"><h2 id="listTitle">Accesos guardados</h2><span class="count" id="count">0 accesos</span></div>
+          <label for="search" class="visually-hidden" style="position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden">Buscar accesos</label>
+          <input id="search" type="search" placeholder="Buscar por nombre o enlace…">
+          <div class="records" id="records" aria-live="polite"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
 
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Oda</div>
-        <div class="botones">
-            <a href="http://192.168.8.212:8084/default.asp" target="_blank" class="btn correo">Oda</a>
-        </div>
-    </div>
+  <script>
+    (() => {
+      'use strict';
+      const STORAGE_KEY = 'backoffice-credential-vault-v1';
+      const ITERATIONS = 310000;
+      const authPanel = document.getElementById('authPanel');
+      const authForm = document.getElementById('authForm');
+      const vault = document.getElementById('vault');
+      const authTitle = document.getElementById('authTitle');
+      const authCopy = document.getElementById('authCopy');
+      const confirmField = document.getElementById('confirmField');
+      const unlockButton = document.getElementById('unlockButton');
+      const masterInput = document.getElementById('masterPassword');
+      const confirmInput = document.getElementById('confirmPassword');
+      const credentialForm = document.getElementById('credentialForm');
+      const recordsElement = document.getElementById('records');
+      const toastElement = document.getElementById('toast');
+      let vaultKey = null;
+      let credentials = [];
+      let editingId = null;
+      let toastTimer;
 
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Portal Perifericos</div>
-        <div class="botones">
-            <a href="http://172.21.201.14:6503/portal-perifericos-crm-sv/#/login" target="_blank"  class="btn correo">Portal Perifericos</a>
-        </div>
-    </div>
+      const encode = (bytes) => btoa(String.fromCharCode(...new Uint8Array(bytes)));
+      const decode = (value) => Uint8Array.from(atob(value), char => char.charCodeAt(0));
+      const getStoredVault = () => {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); }
+        catch { return null; }
+      };
+      const isSecureContextForCrypto = () => Boolean(window.crypto && window.crypto.subtle);
+      const showToast = (message) => {
+        toastElement.textContent = message;
+        toastElement.classList.add('visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastElement.classList.remove('visible'), 2400);
+      };
+      const deriveKey = async (password, salt) => {
+        const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+        return crypto.subtle.deriveKey({ name:'PBKDF2', salt, iterations:ITERATIONS, hash:'SHA-256' }, material, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']);
+      };
+      const encryptCredentials = async () => {
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const plaintext = new TextEncoder().encode(JSON.stringify(credentials));
+        const ciphertext = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, vaultKey, plaintext);
+        const stored = getStoredVault();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ version:1, salt:stored.salt, iv:encode(iv), ciphertext:encode(ciphertext) }));
+      };
+      const configureAuth = () => {
+        const exists = Boolean(getStoredVault());
+        authTitle.textContent = exists ? 'Desbloquea tu bóveda' : 'Configura tu contraseña maestra';
+        authCopy.textContent = exists
+          ? 'Ingresa tu contraseña maestra para descifrar tus accesos guardados.'
+          : 'Crea una contraseña maestra para cifrar tu bóveda. Usa al menos 12 caracteres y guárdala en un lugar seguro; no se puede recuperar si la olvidas.';
+        confirmField.hidden = exists;
+        confirmInput.required = !exists;
+        masterInput.minLength = exists ? 1 : 12;
+        masterInput.autocomplete = exists ? 'current-password' : 'new-password';
+        masterInput.placeholder = exists ? 'Contraseña maestra' : 'Al menos 12 caracteres';
+        unlockButton.textContent = exists ? 'Desbloquear bóveda' : 'Crear bóveda';
+        authPanel.hidden = false;
+        vault.hidden = true;
+      };
+      const unlock = async (password) => {
+        const stored = getStoredVault();
+        if (!stored) {
+          const salt = crypto.getRandomValues(new Uint8Array(16));
+          vaultKey = await deriveKey(password, salt);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ version:1, salt:encode(salt), iv:'', ciphertext:'' }));
+          credentials = [];
+          await encryptCredentials();
+        } else {
+          if (stored.version !== 1 || !stored.salt || !stored.iv || !stored.ciphertext) throw new Error('La bóveda guardada no tiene un formato válido.');
+          vaultKey = await deriveKey(password, decode(stored.salt));
+          const plaintext = await crypto.subtle.decrypt({ name:'AES-GCM', iv:decode(stored.iv) }, vaultKey, decode(stored.ciphertext));
+          credentials = JSON.parse(new TextDecoder().decode(plaintext));
+          if (!Array.isArray(credentials)) throw new Error('El contenido de la bóveda no es válido.');
+        }
+        authForm.reset();
+        authPanel.hidden = true;
+        vault.hidden = false;
+        renderRecords();
+      };
+      const lock = () => {
+        vaultKey = null;
+        credentials = [];
+        editingId = null;
+        credentialForm.reset();
+        resetEditor();
+        configureAuth();
+        masterInput.focus();
+      };
+      const resetEditor = () => {
+        editingId = null;
+        credentialForm.reset();
+        document.getElementById('formTitle').textContent = 'Agregar un acceso';
+        document.getElementById('saveButton').textContent = 'Guardar acceso';
+        document.getElementById('cancelEdit').hidden = true;
+      };
+      const renderRecords = () => {
+        const query = document.getElementById('search').value.trim().toLocaleLowerCase();
+        const filtered = credentials.filter(item => `${item.name} ${item.link}`.toLocaleLowerCase().includes(query));
+        document.getElementById('count').textContent = `${credentials.length} ${credentials.length === 1 ? 'acceso' : 'accesos'}`;
+        recordsElement.replaceChildren();
+        if (!filtered.length) {
+          const empty = document.createElement('p');
+          empty.className = 'empty';
+          empty.textContent = credentials.length ? 'No hay accesos que coincidan con la búsqueda.' : 'Todavía no guardas accesos. Usa el formulario para agregar el primero.';
+          recordsElement.append(empty);
+          return;
+        }
+        filtered.forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'record';
+          const top = document.createElement('div');
+          top.className = 'record-top';
+          const title = document.createElement('h3');
+          title.textContent = item.name;
+          const actions = document.createElement('div');
+          actions.className = 'record-actions';
+          const editButton = document.createElement('button');
+          editButton.type = 'button'; editButton.textContent = 'Editar'; editButton.setAttribute('aria-label', `Editar ${item.name}`);
+          editButton.addEventListener('click', () => beginEdit(item));
+          const deleteButton = document.createElement('button');
+          deleteButton.type = 'button'; deleteButton.className = 'danger'; deleteButton.textContent = 'Eliminar'; deleteButton.setAttribute('aria-label', `Eliminar ${item.name}`);
+          deleteButton.addEventListener('click', () => removeCredential(item));
+          actions.append(editButton, deleteButton);
+          top.append(title, actions);
+          const data = document.createElement('div');
+          data.className = 'record-data';
+          data.append(makeDataRow('Enlace', item.link, 'Copiar enlace', true));
+          data.append(makeDataRow('Contraseña', '••••••••', 'Copiar contraseña', false, item.password));
+          card.append(top, data);
+          recordsElement.append(card);
+        });
+      };
+      const makeDataRow = (labelText, value, buttonText, isLink, copyValue = value) => {
+        const group = document.createElement('div');
+        const label = document.createElement('span'); label.className = 'data-label'; label.textContent = labelText;
+        const row = document.createElement('div'); row.className = 'data-row';
+        const display = document.createElement('span'); display.className = 'data-value';
+        if (isLink) {
+          const anchor = document.createElement('a'); anchor.href = value; anchor.target = '_blank'; anchor.rel = 'noopener noreferrer'; anchor.textContent = value; display.append(anchor);
+        } else display.textContent = value;
+        const copyButton = document.createElement('button'); copyButton.type = 'button'; copyButton.textContent = buttonText;
+        copyButton.addEventListener('click', async () => {
+          try { await copyText(copyValue); showToast(`${labelText} copiado.`); }
+          catch { showToast('No se pudo copiar. Revisa los permisos del navegador.'); }
+        });
+        row.append(display, copyButton); group.append(label, row); return group;
+      };
+      const copyText = async (text) => {
+        if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+        const temporary = document.createElement('textarea');
+        temporary.value = text; temporary.setAttribute('readonly', '');
+        temporary.style.position = 'fixed'; temporary.style.opacity = '0';
+        document.body.append(temporary); temporary.select();
+        const success = document.execCommand('copy'); temporary.remove();
+        if (!success) throw new Error('Clipboard unavailable');
+      };
+      const beginEdit = (item) => {
+        editingId = item.id;
+        document.getElementById('name').value = item.name;
+        document.getElementById('link').value = item.link;
+        document.getElementById('password').value = item.password;
+        document.getElementById('formTitle').textContent = 'Editar acceso';
+        document.getElementById('saveButton').textContent = 'Guardar cambios';
+        document.getElementById('cancelEdit').hidden = false;
+        document.getElementById('name').focus();
+        window.scrollTo({ top:0, behavior:'smooth' });
+      };
+      const removeCredential = async (item) => {
+        if (!window.confirm(`¿Eliminar el acceso “${item.name}”? Esta acción no se puede deshacer.`)) return;
+        credentials = credentials.filter(entry => entry.id !== item.id);
+        try { await encryptCredentials(); renderRecords(); showToast('Acceso eliminado.'); }
+        catch { showToast('No se pudo guardar el cambio.'); }
+      };
 
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Axiros</div>
-        <div class="botones">
-            <a href="http://axess.americamovil.ca1:9673/live/AXCustomerSupportPortal/#/login?tab=WANDiag" target="_blank"  class="btn correo">Axiros</a>
-        </div>
-    </div>
-
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Excel - PPH BO Santa Ana</div>
-        <div class="botones">
-            <a href="https://claroamericamovilca1-my.sharepoint.com/:x:/r/personal/guillermof_cortez_aliados_claro_com_sv/_layouts/15/Doc.aspx?sourcedoc=%7BC8F7C98C-563B-42B6-B53C-35D54E26A6D6%7D&file=PPH%20BO%20Santa%20Ana.xlsx&action=default&mobileredirect=true" target="_blank" class="btn correo">PPH BO Santa Ana</a>
-        </div>
-    </div>
-
-<!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Portal Corporativo</div>
-        <div class="botones">
-            <a href="http://172.23.21.219:8080/portalcorp_pv/login_form.php" target="_blank" class="btn correo">Portal Corporativo</a>
-        </div>
-    </div>
-
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Excel - Credenciales</div>
-        <div class="botones">
-            <a href="https://docs.google.com/spreadsheets/d/1QwKLu5Vhmvw74RZPgEByoliXth0_zZ9O/edit?gid=1149837357#gid=1149837357" target="_blank" class="btn correo">Credenciales</a>
-        </div>
-    </div>
-
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Consulta Movil</div>
-        <div class="botones">
-            <a href="http://172.24.55.76:8282/consultaMovil/inicio/index.php" target="_blank" class="btn correo">Consulta Movil</a>
-        </div>
-    </div>
-
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Back Office 360</div>
-        <div class="botones">
-            <a href="http://172.23.12.156:8080/bo360/login.php" target="_blank" class="btn correo">Back Office 360</a>
-        </div>
-    </div>
-
-    <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Siare</div>
-        <div class="botones">
-            <a href="http://172.16.204.213:5013/SIARE/faces/index.jsf" target="_blank" class="btn correo">Siare</a>
-        </div>
-    </div>
-
-        <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Pulse</div>
-        <div class="botones">
-            <a href="https://pulseapius.concentrix.com/login?signin=2d9cc5b70182dcbc39f5dc339a73b4a1" target="_blank" class="btn correo">Pulse</a>
-        </div>
-    </div>
-
-        <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Restablecimiento de Contraseña Concentrix</div>
-        <div class="botones">
-            <a href="https://pwd-reset.concentrix.com/showLogin.cc" target="_blank" class="btn correo">Correo</a>
-        </div>
-    </div>
-
-        <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Word - Backoffice Corporativo</div>
-        <div class="botones">
-            <a href="https://docs.google.com/document/d/1ilGjWPguVP_Nk2GcDsJDBjuMD7NSbNsXMDBmVcB8QcI/edit?tab=t.0#heading=h.ynt443k9lq4s" target="_blank" class="btn correo">Backoffice Corporativo</a>
-        </div>
-    </div>
-
-        <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Gui de Claro Video</div>
-        <div class="botones">
-            <a href="http://clarovideo.sac.claro.com.sv:5503/ClaroVideoSv/index.jsp" target="_blank" class="btn correo">Gui de Claro Video</a>
-        </div>
-    </div>
-
-        <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Excel - Cierre de Tickets SM</div>
-        <div class="botones">
-            <a href="https://claroamericamovilca1-my.sharepoint.com/:x:/r/personal/garcia_abraham_aliados_claro_com_sv/_layouts/15/Doc.aspx?action=edit&sourcedoc=%7B3e43a74b-250f-4a67-92a1-6fa20896c135%7D&wdExp=TEAMS-TREATMENT&web=1" target="_blank" class="btn correo">Cierre de Tickets SM</a>
-        </div>
-    </div>
-
-        <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Factibilidad</div>
-        <div class="botones">
-            <a href="http://172.24.55.76/factibilidad_tecnica/index.php" target="_blank" class="btn correo">Factibilidad</a>
-        </div>
-    </div>
-
-            <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Gevenue webclientel/</div>
-        <div class="botones">
-            <a href="http://webclientel/Gevenue.WebStation/login.aspx?ReturnUrl=%2fGevenue.WebStation%2fMenu.aspx" target="_blank" class="btn correo">Gevenue webclientel</a>
-        </div>
-    </div>
-
-            <!-- CONTACTO -->
-    <div class="card">
-        <div class="nombre">Gevenue webclientsvcallcenter</div>
-        <div class="botones">
-            <a href="http://webclientsvcallcenter/Gevenue.WebStation/Login.aspx" target="_blank" class="btn correo">Gevenue webclientsvcallcenter</a>
-        </div>
-    </div>
-
-</div>
-
-<script>
-
-const buscador = document.getElementById("buscador");
-
-buscador.addEventListener("keyup", () => {
-
-    const filtro = buscador.value.toLowerCase();
-
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
-
-        const texto = card.textContent.toLowerCase();
-
-        card.style.display =
-            texto.includes(filtro)
-            ? "block"
-            : "none";
-    });
-
-});
-
-</script>
-
+      authForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!isSecureContextForCrypto()) { showToast('El cifrado no está disponible. Abre esta página en un navegador compatible y contexto seguro.'); return; }
+        const password = masterInput.value;
+        const stored = getStoredVault();
+        if (!stored && password.length < 12) { showToast('La contraseña maestra debe tener al menos 12 caracteres.'); return; }
+        if (!stored && password !== confirmInput.value) { showToast('Las contraseñas maestras no coinciden.'); confirmInput.focus(); return; }
+        unlockButton.disabled = true;
+        try { await unlock(password); }
+        catch (error) {
+          vaultKey = null; credentials = [];
+          showToast(error.name === 'OperationError' ? 'Contraseña maestra incorrecta.' : (error.message || 'No se pudo abrir la bóveda.'));
+        } finally { unlockButton.disabled = false; masterInput.value = ''; confirmInput.value = ''; }
+      });
+      credentialForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const link = document.getElementById('link').value.trim();
+        const password = document.getElementById('password').value;
+        let parsedLink;
+        try { parsedLink = new URL(link); } catch { showToast('Escribe un enlace válido.'); return; }
+        if (!['http:', 'https:'].includes(parsedLink.protocol)) { showToast('El enlace debe comenzar con http:// o https://.'); return; }
+        const existing = editingId ? credentials.find(item => item.id === editingId) : null;
+        const next = { id: editingId || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`), name, link, password, createdAt:existing ? existing.createdAt : new Date().toISOString() };
+        const previous = credentials;
+        credentials = editingId ? credentials.map(item => item.id === editingId ? next : item) : [...credentials, next];
+        try { await encryptCredentials(); resetEditor(); renderRecords(); showToast(editingId ? 'Cambios guardados.' : 'Acceso guardado cifrado.'); }
+        catch (error) { credentials = previous; showToast('No se pudo guardar. Comprueba el espacio disponible en el navegador.'); }
+      });
+      document.getElementById('cancelEdit').addEventListener('click', resetEditor);
+      document.getElementById('lockButton').addEventListener('click', lock);
+      document.getElementById('search').addEventListener('input', renderRecords);
+      window.addEventListener('pagehide', () => { vaultKey = null; credentials = []; });
+      configureAuth();
+      if (!isSecureContextForCrypto()) showToast('Web Crypto requiere HTTPS o localhost para proteger tus datos.');
+    })();
+  </script>
 </body>
 </html>
