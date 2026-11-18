@@ -15,8 +15,7 @@
     menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
     collapse: '<path d="m15 18-6-6 6-6"/><path d="M4 4v16"/>'
   };
-
-  const icon = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name] || iconPaths.note}</svg>`;
+  const icon = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name] || ''}</svg>`;
   const groups = [
     { label: 'General', items: [{ label: 'Inicio', file: 'index.html', icon: 'home' }] },
     { label: 'Operación', submenu: true, items: [
@@ -38,31 +37,21 @@
   ];
 
   const normalizedPath = window.location.pathname.split('/').pop() || 'index.html';
-  const savedCollapsed = localStorage.getItem('bo-sidebar-collapsed') === 'true';
-  document.body.classList.add('bo-sidebar-page');
-  if (savedCollapsed && window.matchMedia('(min-width: 761px)').matches) document.body.classList.add('bo-sidebar-collapsed');
-
   const sidebar = document.createElement('aside');
   sidebar.id = 'bo-sidebar';
   sidebar.setAttribute('aria-label', 'Navegación principal');
-  sidebar.innerHTML = `
-    <div class="bo-brand-row">
-      <a class="bo-brand-mark" href="index.html" aria-label="Backoffice, ir al inicio" style="text-decoration:none">BC</a>
-      <div class="bo-brand-copy"><span class="bo-brand-name">Backoffice</span><span class="bo-brand-caption">CORPORATIVO · EL SALVADOR</span></div>
-      <button class="bo-toggle" type="button" aria-label="Contraer menú" title="Contraer menú">${icon('collapse')}</button>
-    </div>
-    <div class="bo-sidebar-rule"></div>
-    <nav class="bo-nav" aria-label="Secciones">${groups.map((group, index) => {
-      const entries = group.items.map((item) => {
-        const active = normalizedPath.toLowerCase() === item.file.toLowerCase();
-        return `<a class="${group.submenu ? 'bo-sub-link' : 'bo-nav-link'}" href="${item.file}" ${active ? 'aria-current="page"' : ''} title="${item.label}">${icon(item.icon)}<span class="bo-nav-text">${item.label}</span></a>`;
-      }).join('');
-      if (!group.submenu) return `<div class="bo-section"><p class="bo-nav-label">${group.label}</p>${entries}</div>`;
-      const expanded = group.items.some(item => normalizedPath.toLowerCase() === item.file.toLowerCase());
-      const id = `bo-submenu-${index}`;
-      return `<div class="bo-section"><button class="bo-group-toggle" type="button" aria-expanded="${expanded}" aria-controls="${id}">${icon(group.items[0].icon)}<span class="bo-nav-text">${group.label}</span>${icon('chevron').replace('<svg ', '<svg class="bo-chevron" ')}</button><div class="bo-submenu" id="${id}" ${expanded ? '' : 'hidden'}>${entries}</div></div>`;
-    }).join('')}</nav>
-    <div class="bo-sidebar-footer">Herramientas de atención corporativa</div>`;
+  const sectionMarkup = groups.map((group, index) => {
+    const activeFile = group.items.find(item => normalizedPath.toLowerCase() === item.file.toLowerCase());
+    const entries = group.items.map(item => {
+      const active = normalizedPath.toLowerCase() === item.file.toLowerCase();
+      return `<a class="${group.submenu ? 'bo-sub-link' : 'bo-nav-link'}" href="${item.file}" ${active ? 'aria-current="page"' : ''} title="${item.label}">${icon(item.icon)}<span class="bo-nav-text">${item.label}</span></a>`;
+    }).join('');
+    if (!group.submenu) return `<div class="bo-section"><p class="bo-nav-label">${group.label}</p>${entries}</div>`;
+    const id = `bo-submenu-${index}`;
+    const expanded = Boolean(activeFile);
+    return `<div class="bo-section"><button class="bo-group-toggle" type="button" aria-expanded="${expanded}" aria-controls="${id}">${icon(group.items[0].icon)}<span class="bo-nav-text">${group.label}</span>${icon('chevron').replace('<svg ', '<svg class="bo-chevron" ')}</button><div class="bo-submenu" id="${id}"${expanded ? '' : ' hidden'}>${entries}</div></div>`;
+  }).join('');
+  sidebar.innerHTML = `<div class="bo-brand-row"><a class="bo-brand-mark" href="index.html" aria-label="Backoffice, ir al inicio" style="text-decoration:none">BC</a><div class="bo-brand-copy"><span class="bo-brand-name">Backoffice</span><span class="bo-brand-caption">CORPORATIVO · EL SALVADOR</span></div><button class="bo-toggle" type="button" aria-label="Contraer menú" title="Contraer menú">${icon('collapse')}</button></div><div class="bo-sidebar-rule"></div><nav class="bo-nav" aria-label="Secciones">${sectionMarkup}</nav><div class="bo-sidebar-footer">Herramientas de atención corporativa</div>`;
 
   const mobileToggle = document.createElement('button');
   mobileToggle.id = 'bo-mobile-toggle';
@@ -73,9 +62,11 @@
   const backdrop = document.createElement('div');
   backdrop.id = 'bo-sidebar-backdrop';
   backdrop.setAttribute('aria-hidden', 'true');
-  document.body.prepend(backdrop);
-  document.body.prepend(sidebar);
-  document.body.prepend(mobileToggle);
+  document.body.classList.add('bo-sidebar-page');
+  if (localStorage.getItem('bo-sidebar-collapsed') === 'true' && window.matchMedia('(min-width: 761px)').matches) {
+    document.body.classList.add('bo-sidebar-collapsed');
+  }
+  document.body.prepend(backdrop, sidebar, mobileToggle);
 
   sidebar.querySelector('.bo-toggle').addEventListener('click', () => {
     document.body.classList.add('bo-sidebar-collapsed');
@@ -91,14 +82,20 @@
   };
   backdrop.addEventListener('click', closeMobile);
   sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobile));
-  sidebar.querySelectorAll('.bo-group-toggle').forEach(button => button.addEventListener('click', () => {
-    const expanded = button.getAttribute('aria-expanded') === 'true';
-    button.setAttribute('aria-expanded', String(!expanded));
-    document.getElementById(button.getAttribute('aria-controls')).hidden = expanded;
-  }));
+  sidebar.querySelectorAll('.bo-group-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', String(!expanded));
+      const submenu = document.getElementById(button.getAttribute('aria-controls'));
+      if (submenu) submenu.hidden = expanded;
+    });
+  });
   document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMobile(); });
-  window.matchMedia('(min-width: 761px)').addEventListener('change', event => {
+  const mediaQuery = window.matchMedia('(min-width: 761px)');
+  const handleViewportChange = event => {
     if (!event.matches) document.body.classList.remove('bo-sidebar-collapsed');
     closeMobile();
-  });
+  };
+  if (mediaQuery.addEventListener) mediaQuery.addEventListener('change', handleViewportChange);
+  else if (mediaQuery.addListener) mediaQuery.addListener(handleViewportChange);
 })();
