@@ -4,157 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bloc de Notas</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
-body{
-    background:linear-gradient(135deg,#4f46e5,#7c3aed);
-    min-height:100vh;
-    padding:20px;
-}
-
-.container{
-    max-width:1200px;
-    margin:auto;
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-h1{
-    color:#333;
-}
-
-.top-buttons{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-button{
-    border:none;
-    border-radius:10px;
-    padding:10px 15px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.3s;
-}
-
-button:hover{
-    transform:translateY(-2px);
-}
-
-.btn-primary{
-    background:#4f46e5;
-    color:white;
-}
-
-.btn-success{
-    background:#10b981;
-    color:white;
-}
-
-.btn-danger{
-    background:#ef4444;
-    color:white;
-}
-
-.tabs{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    margin-bottom:15px;
-    padding-bottom:5px;
-}
-
-.tab{
-    padding:10px 15px;
-    background:#e5e7eb;
-    border-radius:10px;
-    cursor:pointer;
-    white-space:nowrap;
-    user-select:none;
-}
-
-.tab.active{
-    background:#4f46e5;
-    color:white;
-}
-
-textarea{
-    width:100%;
-    height:65vh;
-    border:none;
-    outline:none;
-    resize:none;
-    padding:15px;
-    border-radius:12px;
-    background:#f5f7fa;
-    font-size:16px;
-    line-height:1.6;
-}
-
-.footer{
-    margin-top:15px;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
-}
-
-.counter{
-    color:#666;
-}
-
-@media(max-width:768px){
-
-    textarea{
-        height:60vh;
-    }
-
-    .footer{
-        flex-direction:column;
-    }
-}
-
-.mini-timer{
-    width:200px;
-    text-align:center;
-    background:#000000;
-    color:rgb(0, 255, 0);
-    font-weight:bold;
-    padding:8px;
-    border-radius:10px;
-    cursor:pointer;
-    user-select:none;
-    margin-bottom:15px;
-    box-shadow:0 3px 8px rgba(0,0,0,.2);
-}
-
-.mini-timer.running{
-    background:#dc2626;
-}
-
-.mini-timer.finished{
-    background:#16a34a;
-}
-</style>
+<link rel="stylesheet" href="sidebar.css">
+  <script src="sidebar.js" defer></script>
+  <style>
+    :root { color-scheme:light; --ink:#202936; --muted:#667085; --line:#e6e9ef; --red:#d71920; --bg:#f5f7fa; --panel:#fff; --field:#fff; --soft:#f7f8fa; --button:#f0f2f5; --button-ink:#344054; --link:#175cd3; --note-bg:#fff9e9; --note-border:#f3d9a5; --note-ink:#75551c; }
+    :root[data-theme="dark"] { color-scheme:dark; --ink:#edf1f7; --muted:#a0a9b8; --line:#384253; --red:#ff555b; --bg:#11151c; --panel:#1b222d; --field:#141a23; --soft:#232c39; --button:#303a49; --button-ink:#e7ebf2; --link:#8ab4ff; --note-bg:#332b1c; --note-border:#66502a; --note-ink:#f3d99e; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Arial,sans-serif; transition:background .2s,color .2s; }
+    main { max-width:1100px; margin:0 auto; padding:24px; }
+    h1 { margin:0; font-size:clamp(26px,4vw,36px); letter-spacing:-.03em; }
+    .page-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .intro { margin:8px 0 22px; color:var(--muted); line-height:1.55; }
+    .panel { padding:21px; border:1px solid var(--line); border-radius:16px; background:var(--panel); box-shadow:0 6px 20px #0000000a; }
+    .security-note { margin:0 0 20px; padding:13px 15px; border:1px solid var(--note-border); border-radius:11px; background:var(--note-bg); color:var(--note-ink); font-size:13px; line-height:1.55; }
+    .auth-panel { max-width:520px; margin:36px auto; }
+    .auth-panel h2, .panel h2 { margin:0 0 8px; font-size:19px; }
+    .auth-copy, .panel-copy { margin:0 0 18px; color:var(--muted); font-size:14px; line-height:1.5; }
+    label { display:block; margin:0 0 7px; color:var(--ink); font-size:13px; font-weight:700; }
+    input, select { width:100%; min-height:43px; padding:10px 12px; border:1px solid var(--line); border-radius:9px; background:var(--field); color:var(--ink); font:inherit; }
+    input::placeholder { color:var(--muted); }
+    input:focus, select:focus { outline:3px solid #d7192020; border-color:var(--red); }
+    .field { margin-bottom:14px; }
+    button { min-height:38px; padding:9px 12px; border:0; border-radius:9px; background:var(--button); color:var(--button-ink); font:700 13px Arial,sans-serif; cursor:pointer; }
+    button:hover { filter:brightness(.96); }
+    button:focus-visible, a:focus-visible { outline:3px solid #d7192050; outline-offset:2px; }
+    .primary { background:var(--red); color:#fff; }
+    .danger { background:#fff0f0; color:#b42318; }
+    :root[data-theme="dark"] .danger { background:#492b30; color:#ffb4b8; }
+    .auth-panel .primary { width:100%; margin-top:3px; }
+    .theme-toggle { display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px; }
+    .topbar .intro { margin:0; }
+    .top-actions { display:flex; align-items:center; gap:9px; }
+    .workspace { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-items:start; }
+    .panel h2 { margin-bottom:6px; }
+    .panel-copy { margin-bottom:17px; }
+    .form-actions { display:flex; gap:9px; }
+    .form-actions button { flex:1; }
+    .list-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:22px 0 12px; }
+    .list-toolbar h2 { margin:0; }
+    .count { color:var(--muted); font-size:13px; white-space:nowrap; }
+    .account-list { display:grid; gap:13px; }
+    .account-card { padding:17px; border:1px solid var(--line); border-radius:13px; background:var(--panel); }
+    .account-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+    .account-head h3 { margin:0; overflow-wrap:anywhere; font-size:16px; }
+    .account-username { margin:5px 0 0; color:var(--muted); font-size:13px; overflow-wrap:anywhere; }
+    .actions { display:flex; gap:7px; flex-wrap:wrap; justify-content:flex-end; }
+    .actions button { min-height:32px; padding:7px 9px; font-size:12px; }
+    .credential-row { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:13px; padding-top:12px; border-top:1px solid var(--line); }
+    .credential-row span { color:var(--muted); font-size:12px; }
+    .credential-row button, .link-actions button { min-height:31px; padding:6px 9px; font-size:12px; }
+    .link-list { display:grid; gap:9px; margin-top:14px; }
+    .link-item { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px; border-radius:10px; background:var(--soft); }
+    .link-info { min-width:0; }
+    .link-title { display:block; margin-bottom:4px; color:var(--ink); font-size:13px; font-weight:700; }
+    .link-url { display:block; max-width:100%; overflow-wrap:anywhere; color:var(--link); font-size:12px; }
+    .link-actions { display:flex; flex:none; gap:6px; }
+    .empty { padding:25px 12px; color:var(--muted); text-align:center; font-size:14px; }
+    #toast { position:fixed; right:22px; bottom:22px; z-index:2000; padding:12px 16px; border-radius:10px; background:#202936; color:#fff; box-shadow:0 8px 22px #10182830; font-size:14px; opacity:0; transform:translateY(8px); pointer-events:none; transition:.2s; }
+    #toast.visible { opacity:1; transform:translateY(0); }
+    [hidden] { display:none !important; }
+    @media(max-width:850px) { .workspace { grid-template-columns:1fr; } }
+    @media(max-width:560px) { main { padding:20px 15px; } .panel { padding:17px; } .page-heading { align-items:flex-start; } .topbar { align-items:flex-start; flex-direction:column; } .account-head { flex-direction:column; } .actions { justify-content:flex-start; } .link-item { align-items:flex-start; flex-direction:column; } }
+  </style>
 </head>
 <body>
 
