@@ -1,101 +1,14 @@
 (() => {
-  const iconPaths = {
-    home: '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7H9v7H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/>',
-    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
-    link: '<path d="M10 13a5 5 0 0 0 7.07 0l3-3A5 5 0 0 0 13 2.93l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3A5 5 0 0 0 11 21.07l1.71-1.71"/>',
-    sim: '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8v4H8zM8 14h2m4 0h2m-8 4h2m4 0h2"/>',
-    shield: '<path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11"/><path d="m9 12 2 2 4-4"/>',
-    receipt: '<path d="M4 2v20l4-2 4 2 4-2 4 2V2l-4 2-4-2-4 2z"/><path d="M8 10h8M8 14h6"/>',
-    note: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8m-8 4h8"/>',
-    close: '<path d="M9 10h6m-6 4h6m-6 4h6"/><path d="M5 3h14v18l-3-2-4 2-4-2-3 2z"/>',
-    globe: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>',
-    key: '<circle cx="8" cy="15" r="5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/>',
-    template: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
-    chevron: '<path d="m9 18 6-6-6-6"/>',
-    menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
-    collapse: '<path d="m15 18-6-6 6-6"/><path d="M4 4v16"/>'
-  };
-  const icon = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name] || ''}</svg>`;
-  const groups = [
-    { label: 'General', items: [{ label: 'Inicio', file: 'index.html', icon: 'home' }] },
-    { label: 'Operación', submenu: true, items: [
-      { label: 'Directorio de Posventas', file: 'directorio_posventas.html', icon: 'users' },
-      { label: 'Enlaces', file: 'enlaces.html', icon: 'link' }
-    ]},
-    { label: 'Gestión de líneas', submenu: true, items: [
-      { label: 'Reemplazo de SIM', file: 'reemplazo_sim.html', icon: 'sim' },
-      { label: 'Códigos de país', file: 'codigos_pais.html', icon: 'globe' }
-    ]},
-    { label: 'Herramientas', submenu: true, items: [
-      { label: 'Firma de reporte de robo', file: 'firmador_automatico_robo.html', icon: 'shield' },
-      { label: 'Facturas', file: 'facturas.html', icon: 'receipt' },
-      { label: 'Cierres QF', file: 'cierres.html', icon: 'close' },
-      { label: 'Plantillas QF', file: 'plantillas.html', icon: 'template' },
-      { label: 'Bloc de notas', file: 'bloc.html', icon: 'note' },
-      { label: 'Credenciales', file: 'credenciales.html', icon: 'key' }
-    ]}
-  ];
-
-  const normalizedPath = window.location.pathname.split('/').pop() || 'index.html';
-  const sidebar = document.createElement('aside');
-  sidebar.id = 'bo-sidebar';
-  sidebar.setAttribute('aria-label', 'Navegación principal');
-  const sectionMarkup = groups.map((group, index) => {
-    const activeFile = group.items.find(item => normalizedPath.toLowerCase() === item.file.toLowerCase());
-    const entries = group.items.map(item => {
-      const active = normalizedPath.toLowerCase() === item.file.toLowerCase();
-      return `<a class="${group.submenu ? 'bo-sub-link' : 'bo-nav-link'}" href="${item.file}" ${active ? 'aria-current="page"' : ''} title="${item.label}">${icon(item.icon)}<span class="bo-nav-text">${item.label}</span></a>`;
-    }).join('');
-    if (!group.submenu) return `<div class="bo-section"><p class="bo-nav-label">${group.label}</p>${entries}</div>`;
-    const id = `bo-submenu-${index}`;
-    const expanded = Boolean(activeFile);
-    return `<div class="bo-section"><button class="bo-group-toggle" type="button" aria-expanded="${expanded}" aria-controls="${id}">${icon(group.items[0].icon)}<span class="bo-nav-text">${group.label}</span>${icon('chevron').replace('<svg ', '<svg class="bo-chevron" ')}</button><div class="bo-submenu" id="${id}"${expanded ? '' : ' hidden'}>${entries}</div></div>`;
-  }).join('');
-  sidebar.innerHTML = `<div class="bo-brand-row"><a class="bo-brand-mark" href="index.html" aria-label="Backoffice, ir al inicio" style="text-decoration:none">BC</a><div class="bo-brand-copy"><span class="bo-brand-name">Backoffice</span><span class="bo-brand-caption">CORPORATIVO · EL SALVADOR</span></div><button class="bo-toggle" type="button" aria-label="Contraer menú" title="Contraer menú">${icon('collapse')}</button></div><div class="bo-sidebar-rule"></div><nav class="bo-nav" aria-label="Secciones">${sectionMarkup}</nav><div class="bo-sidebar-footer">Herramientas de atención corporativa</div>`;
-
-  const mobileToggle = document.createElement('button');
-  mobileToggle.id = 'bo-mobile-toggle';
-  mobileToggle.type = 'button';
-  mobileToggle.setAttribute('aria-label', 'Abrir menú de navegación');
-  mobileToggle.setAttribute('aria-expanded', 'false');
-  mobileToggle.innerHTML = icon('menu');
-  const backdrop = document.createElement('div');
-  backdrop.id = 'bo-sidebar-backdrop';
-  backdrop.setAttribute('aria-hidden', 'true');
-  document.body.classList.add('bo-sidebar-page');
-  if (localStorage.getItem('bo-sidebar-collapsed') === 'true' && window.matchMedia('(min-width: 761px)').matches) {
-    document.body.classList.add('bo-sidebar-collapsed');
-  }
-  document.body.prepend(backdrop, sidebar, mobileToggle);
-
-  sidebar.querySelector('.bo-toggle').addEventListener('click', () => {
-    document.body.classList.add('bo-sidebar-collapsed');
-    localStorage.setItem('bo-sidebar-collapsed', 'true');
-  });
-  mobileToggle.addEventListener('click', () => {
-    const open = document.body.classList.toggle('bo-sidebar-open');
-    mobileToggle.setAttribute('aria-expanded', String(open));
-  });
-  const closeMobile = () => {
-    document.body.classList.remove('bo-sidebar-open');
-    mobileToggle.setAttribute('aria-expanded', 'false');
-  };
-  backdrop.addEventListener('click', closeMobile);
-  sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobile));
-  sidebar.querySelectorAll('.bo-group-toggle').forEach(button => {
-    button.addEventListener('click', () => {
-      const expanded = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', String(!expanded));
-      const submenu = document.getElementById(button.getAttribute('aria-controls'));
-      if (submenu) submenu.hidden = expanded;
-    });
-  });
-  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMobile(); });
-  const mediaQuery = window.matchMedia('(min-width: 761px)');
-  const handleViewportChange = event => {
-    if (!event.matches) document.body.classList.remove('bo-sidebar-collapsed');
-    closeMobile();
-  };
-  if (mediaQuery.addEventListener) mediaQuery.addEventListener('change', handleViewportChange);
-  else if (mediaQuery.addListener) mediaQuery.addListener(handleViewportChange);
+const iconPaths={home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7H9v7H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/>',users:'<path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',link:'<path d="M10 13a5 5 0 0 0 7.07 0l3-3A5 5 0 0 0 13 2.93l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3A5 5 0 0 0 11 21.07l1.71-1.71"/>',sim:'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8v4H8zM8 14h2m4 0h2m-8 4h2m4 0h2"/>',shield:'<path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11"/><path d="m9 12 2 2 4-4"/>',receipt:'<path d="M4 2v20l4-2 4 2 4-2 4 2V2l-4 2-4-2-4 2z"/><path d="M8 10h8M8 14h6"/>',note:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8m-8 4h8"/>',close:'<path d="M9 10h6m-6 4h6m-6 4h6"/><path d="M5 3h14v18l-3-2-4 2-4-2-3 2z"/>',globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>',key:'<circle cx="8" cy="15" r="5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/>',template:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',chevron:'<path d="m9 18 6-6-6-6"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',collapse:'<path d="m15 18-6-6 6-6"/><path d="M4 4v16"/>',moon:'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/>',up:'<path d="m18 15-6-6-6 6"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'};
+const icon=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[n]||''}</svg>`;
+const groups=[{label:'General',items:[{label:'Inicio',file:'index.html',icon:'home'}]},{label:'Operación',submenu:true,items:[{label:'Directorio de Posventas',file:'directorio_posventas.html',icon:'users'},{label:'Enlaces',file:'enlaces.html',icon:'link'}]},{label:'Gestión de líneas',submenu:true,items:[{label:'Reemplazo de SIM',file:'reemplazo_sim.html',icon:'sim'},{label:'Códigos de país',file:'codigos_pais.html',icon:'globe'}]},{label:'Herramientas',submenu:true,items:[{label:'Firma de reporte de robo',file:'firmador_automatico_robo.html',icon:'shield'},{label:'Facturas',file:'facturas.html',icon:'receipt'},{label:'Cierres QF',file:'cierres.html',icon:'close'},{label:'Plantillas QF',file:'plantillas.html',icon:'template'},{label:'Bloc de notas',file:'bloc.html',icon:'note'},{label:'Credenciales',file:'credenciales.html',icon:'key'}]}];
+const normalizedPath=window.location.pathname.split('/').pop()||'index.html';
+const sidebar=document.createElement('aside');sidebar.id='bo-sidebar';sidebar.setAttribute('aria-label','Navegación principal');
+const sectionMarkup=groups.map((group,index)=>{const activeFile=group.items.find(item=>normalizedPath.toLowerCase()===item.file.toLowerCase());const entries=group.items.map(item=>{const active=normalizedPath.toLowerCase()===item.file.toLowerCase();return `<a class="${group.submenu?'bo-sub-link':'bo-nav-link'}" href="${item.file}" ${active?'aria-current="page"':''} title="${item.label}">${icon(item.icon)}<span class="bo-nav-text">${item.label}</span></a>`}).join('');if(!group.submenu)return `<div class="bo-section"><p class="bo-nav-label">${group.label}</p><nav class="bo-nav">${entries}</nav></div>`;const id=`bo-submenu-${index}`;const expanded=Boolean(activeFile);return `<div class="bo-section"><button class="bo-group-toggle" type="button" aria-expanded="${expanded}" aria-controls="${id}">${icon(group.items[0].icon)}<span class="bo-nav-text">${group.label}</span><span class="bo-chevron">${icon('chevron')}</span></button><nav class="bo-submenu" id="${id}" ${expanded?'':'hidden'}>${entries}</nav></div>`}).join('');
+sidebar.innerHTML=`<div class="bo-brand-row"><a class="bo-brand-mark" href="index.html" aria-label="Backoffice, ir al inicio">BC</a><div class="bo-brand-copy"><span class="bo-brand-name">Backoffice</span><span class="bo-brand-caption">Claro Corporativo</span></div><button class="bo-toggle" type="button" aria-label="Contraer menú" title="Contraer menú">${icon('collapse')}</button></div><div class="bo-sidebar-rule"></div>${sectionMarkup}<div class="bo-sidebar-footer">Backoffice Corporativo</div>`;
+const mobileToggle=document.createElement('button');mobileToggle.id='bo-mobile-toggle';mobileToggle.type='button';mobileToggle.setAttribute('aria-label','Abrir menú de navegación');mobileToggle.setAttribute('aria-expanded','false');mobileToggle.innerHTML=icon('menu');const backdrop=document.createElement('div');backdrop.id='bo-sidebar-backdrop';backdrop.setAttribute('aria-hidden','true');document.body.classList.add('bo-sidebar-page');if(localStorage.getItem('bo-sidebar-collapsed')==='true'&&window.matchMedia('(min-width: 761px)').matches)document.body.classList.add('bo-sidebar-collapsed');document.body.prepend(backdrop,sidebar,mobileToggle);
+const actions=document.createElement('div');actions.className='bo-global-actions';const theme=document.createElement('button');theme.id='bo-theme-toggle';theme.type='button';const top=document.createElement('button');top.id='bo-top-button';top.type='button';top.setAttribute('aria-label','Ir al inicio');actions.append(theme,top);document.body.append(actions);
+const applyTheme=dark=>{document.body.classList.toggle('bo-dark-theme',dark);theme.innerHTML=icon(dark?'sun':'moon');theme.setAttribute('aria-label',dark?'Activar modo claro':'Activar modo oscuro');theme.title=dark?'Modo claro':'Modo oscuro'};applyTheme(localStorage.getItem('bo-theme')==='dark');theme.addEventListener('click',()=>{const dark=!document.body.classList.contains('bo-dark-theme');applyTheme(dark);localStorage.setItem('bo-theme',dark?'dark':'light')});top.innerHTML=icon('up');top.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));const updateTop=()=>top.classList.toggle('is-visible',window.scrollY>300);window.addEventListener('scroll',updateTop,{passive:true});updateTop();
+sidebar.querySelector('.bo-toggle').addEventListener('click',()=>{document.body.classList.add('bo-sidebar-collapsed');localStorage.setItem('bo-sidebar-collapsed','true')});mobileToggle.addEventListener('click',()=>{const open=document.body.classList.toggle('bo-sidebar-open');mobileToggle.setAttribute('aria-expanded',String(open))});const closeMobile=()=>{document.body.classList.remove('bo-sidebar-open');mobileToggle.setAttribute('aria-expanded','false')};backdrop.addEventListener('click',closeMobile);sidebar.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMobile));sidebar.querySelectorAll('.bo-group-toggle').forEach(button=>button.addEventListener('click',()=>{const expanded=button.getAttribute('aria-expanded')==='true';button.setAttribute('aria-expanded',String(!expanded));const submenu=document.getElementById(button.getAttribute('aria-controls'));if(submenu)submenu.hidden=expanded}));document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMobile()});const mediaQuery=window.matchMedia('(min-width: 761px)');const handleViewportChange=event=>{if(!event.matches)document.body.classList.remove('bo-sidebar-collapsed');closeMobile()};if(mediaQuery.addEventListener)mediaQuery.addEventListener('change',handleViewportChange);else if(mediaQuery.addListener)mediaQuery.addListener(handleViewportChange);
+const cardsContainer=document.querySelector('.tools-grid, #contenedor');if(cardsContainer){const controls=document.createElement('div');controls.className='bo-view-controls';const search=document.createElement('input');const page=normalizedPath.toLowerCase();if(page==='index.html'){search.className='bo-home-search';search.type='search';search.placeholder='Buscar herramientas...';search.setAttribute('aria-label','Buscar herramientas');document.querySelector('.home-header')?.insertAdjacentElement('afterend',search)}else if(document.getElementById('buscador')){search.className='bo-home-search';search.type='search';search.placeholder='Buscar en esta página...';document.getElementById('buscador')?.insertAdjacentElement('afterend',search)}const grid=document.createElement('button');grid.type='button';grid.className='bo-view-button';grid.title='Vista tarjetas';grid.setAttribute('aria-label','Vista tarjetas');grid.innerHTML=icon('grid');const list=document.createElement('button');list.type='button';list.className='bo-view-button';list.title='Vista lista';list.setAttribute('aria-label','Vista lista');list.innerHTML=icon('list');controls.append(grid,list);cardsContainer.insertAdjacentElement('beforebegin',controls);const applyView=mode=>{cardsContainer.classList.toggle('bo-list-mode',mode==='list');grid.classList.toggle('active',mode==='grid');list.classList.toggle('active',mode==='list');localStorage.setItem('bo-card-view',mode)};applyView(localStorage.getItem('bo-card-view')||'grid');grid.addEventListener('click',()=>applyView('grid'));list.addEventListener('click',()=>applyView('list'));const searchInput=page==='index.html'?search:(document.getElementById('buscador')||search);if(searchInput){searchInput.addEventListener('input',()=>{const query=searchInput.value.toLowerCase().trim();document.querySelectorAll(page==='index.html'?'.tool-card':'.card').forEach(card=>{card.style.display=card.textContent.toLowerCase().includes(query)?'':''})})}}
 })();
