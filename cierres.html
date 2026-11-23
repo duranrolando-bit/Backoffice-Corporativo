@@ -3,355 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cierre de Ticket QF</title>
-
+<title>Plantillas y cierres QF</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="sidebar.css">
-  <script src="sidebar.js" defer></script>
+<link rel="stylesheet" href="sidebar.css">
+<script src="sidebar.js" defer></script>
 <style>
-
-:root{
-    --primary:#2563eb;
-    --primary-hover:#1d4ed8;
-    --success:#10b981;
-    --danger:#ef4444;
-    --bg:#f3f4f6;
-    --card:#ffffff;
-    --text:#1f2937;
-    --border:#e5e7eb;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Inter',sans-serif;
-    background:linear-gradient(135deg,#e0e7ff,#f8fafc);
-    min-height:100vh;
-    padding:25px;
-}
-
-.container{
-    max-width:1100px;
-    margin:auto;
-}
-
-.card{
-    background:var(--card);
-    border-radius:20px;
-    padding:25px;
-    box-shadow:0 15px 35px rgba(0,0,0,.08);
-}
-
-h1{
-    text-align:center;
-    color:var(--text);
-    margin-bottom:20px;
-    font-size:28px;
-}
-
-.subtitulo{
-    text-align:center;
-    color:#6b7280;
-    margin-bottom:25px;
-}
-
-.form-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
-}
-
-.input-group{
-    display:flex;
-    flex-direction:column;
-}
-
-label{
-    font-size:13px;
-    color:#6b7280;
-    margin-bottom:6px;
-    font-weight:600;
-}
-
-input, textarea{
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:12px 15px;
-    font-size:14px;
-    transition:.3s;
-    background:white;
-}
-
-input:focus,
-textarea:focus{
-    outline:none;
-    border-color:var(--primary);
-    box-shadow:0 0 0 4px rgba(37,99,235,.15);
-}
-
-textarea{
-    min-height:120px;
-    resize:vertical;
-}
-
-.full{
-    grid-column:1/-1;
-}
-
-.botones{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top:20px;
-}
-
-button{
-    border:none;
-    border-radius:12px;
-    padding:12px 18px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-    color:white;
-}
-
-button:hover{
-    transform:translateY(-2px);
-}
-
-.btn-copy{
-    background:var(--success);
-}
-
-.btn-copy:hover{
-    background:#059669;
-}
-
-.btn-qf{
-    background:var(--primary);
-}
-
-.btn-qf:hover{
-    background:var(--primary-hover);
-}
-
-.btn-clear{
-    background:var(--danger);
-}
-
-.btn-clear:hover{
-    background:#dc2626;
-}
-
-.preview{
-    margin-top:25px;
-}
-
-.preview h3{
-    margin-bottom:10px;
-    color:var(--text);
-}
-
-#resultado{
-    min-height:300px;
-    background:#111827;
-    color:#f9fafb;
-    border:none;
-    border-radius:15px;
-    padding:20px;
-    font-family:Consolas, monospace;
-    line-height:1.5;
-}
-
-.toast{
-    position:fixed;
-    top:20px;
-    right:20px;
-    background:#111827;
-    color:white;
-    padding:12px 18px;
-    border-radius:12px;
-    opacity:0;
-    transform:translateY(-20px);
-    transition:.3s;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-@media(max-width:768px){
-
-    h1{
-        font-size:22px;
-    }
-
-    .botones button{
-        width:100%;
-    }
-
-}
-
+:root{--primary:#2563eb;--primary-hover:#1d4ed8;--success:#10b981;--danger:#ef4444;--text:#1f2937;--border:#e5e7eb;--muted:#6b7280}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,sans-serif;background:linear-gradient(135deg,#e0e7ff,#f8fafc);min-height:100vh;color:var(--text)}
+.container{max-width:1100px;margin:auto}
+.card{background:#fff;border-radius:20px;padding:25px;margin-bottom:22px;box-shadow:0 15px 35px rgba(0,0,0,.08)}
+h1,h2{text-align:center;color:var(--text);margin:0 0 14px}
+h1{font-size:28px}.subtitulo{text-align:center;color:var(--muted);margin:0 0 25px;line-height:1.55}.template-title{font-size:21px;text-align:left;margin-bottom:8px}.template-description{color:var(--muted);margin:0 0 20px;font-size:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:15px}.input-group{display:flex;flex-direction:column;gap:6px}.input-group label{font-size:13px;color:var(--muted);font-weight:600}.input-group input,.input-group textarea{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px 14px;font:inherit;font-size:14px;background:#fff;color:#1f2937}.input-group input:focus,.input-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(37,99,235,.15)}.input-group textarea{min-height:100px;resize:vertical}.full{grid-column:1/-1}
+.botones{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}button{border:0;border-radius:12px;padding:12px 18px;font-weight:600;cursor:pointer;color:#fff;transition:transform .2s,filter .2s}.botones button:hover{transform:translateY(-2px);filter:brightness(.95)}.btn-copy{background:var(--success)}.btn-qf{background:var(--primary)}.btn-clear{background:var(--danger)}
+@media(max-width:600px){h1{font-size:23px}.card{padding:19px}.botones button{width:100%}.form-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<div class="container">
-
-    <div class="card">
-
-        <h1>📋 Cierre de Ticket QF</h1>
-        <p class="subtitulo">
-            Complete la información y copie la plantilla con un clic.
-        </p>
-
-        <div class="form-grid">
-
-            <div class="input-group">
-                <input type="text" id="nombre" placeholder="Nombre de quien llama">
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="nd" placeholder="ND que reporta">
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="empresa" placeholder="Nombre de la empresa">
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="sd" placeholder="SD">
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="f" placeholder="F">
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="celular" placeholder="Celular de contacto">
-            </div>
-
-            <div class="input-group full">
-                <input type="email" id="correo" placeholder="Correo">
-            </div>
-
-            <div class="input-group full">
-                <label>Comentario</label>
-                <textarea id="comentario" placeholder="Comentario"></textarea>
-            </div>
-
-            <div class="input-group full">
-                <label>Número de Caso QF</label>
-                <input type="text" id="casoQF" placeholder="Número de Caso QF">
-            </div>
-
-        </div>
-
-        <div class="botones">
-            <button class="btn-qf" onclick="copiarQF()">
-                📌 Copiar QF
-            </button>
-
-            <button class="btn-copy" onclick="copiarPlantilla()">
-                📄 Copiar Plantilla Completa
-            </button>
-
-            <button class="btn-clear" onclick="limpiarFormulario()">
-                🗑 Limpiar
-            </button>
-        </div>
-
-        <div class="preview">
-            <h3>Vista Previa</h3>
-
-            <textarea id="resultado" readonly></textarea>
-        </div>
-
+<main class="container">
+  <section class="card" data-template="cierre">
+    <h1>📋 Cierre de Ticket QF</h1>
+    <p class="subtitulo">Complete la información y copie la plantilla con un clic.</p>
+    <div class="form-grid">
+      <div class="input-group"><label for="cierre-nombre">Nombre de quien llama</label><input id="cierre-nombre" data-field="nombre" placeholder="Nombre de quien llama"></div>
+      <div class="input-group"><label for="cierre-nd">ND que reporta</label><input id="cierre-nd" data-field="nd" placeholder="ND que reporta"></div>
+      <div class="input-group"><label for="cierre-empresa">Nombre de la empresa</label><input id="cierre-empresa" data-field="empresa" placeholder="Nombre de la empresa"></div>
+      <div class="input-group"><label for="cierre-sd">SD</label><input id="cierre-sd" data-field="sd" placeholder="SD"></div>
+      <div class="input-group"><label for="cierre-f">F</label><input id="cierre-f" data-field="f" placeholder="F"></div>
+      <div class="input-group"><label for="cierre-celular">Celular de contacto</label><input id="cierre-celular" data-field="celular" placeholder="Celular de contacto"></div>
+      <div class="input-group full"><label for="cierre-correo">Correo</label><input id="cierre-correo" data-field="correo" type="email" placeholder="Correo"></div>
+      <div class="input-group full"><label for="cierre-comentario">Comentario</label><textarea id="cierre-comentario" data-field="comentario" placeholder="Comentario"></textarea></div>
+      <div class="input-group full"><label for="cierre-caso">Número de Caso QF</label><input id="cierre-caso" data-field="casoQF" placeholder="Número de Caso QF"></div>
     </div>
+    <div class="botones"><button class="btn-qf" type="button" onclick="copiarQF()">📌 Copiar QF</button><button class="btn-copy" type="button" onclick="copiarPlantilla('cierre')">📄 Copiar Plantilla Completa</button><button class="btn-clear" type="button" onclick="limpiarFormulario('cierre')">🗑 Limpiar</button></div>
+  </section>
 
-</div>
+  <section class="card" data-template="ticket">
+    <h2 class="template-title">Plantilla de Ticket QF</h2><p class="template-description">Complete los datos del ticket y copie la plantilla completa.</p>
+    <div class="form-grid">
+      <div class="input-group"><label for="ticket-id">Id Ticket</label><input id="ticket-id" data-field="ticket" placeholder="Id Ticket"></div>
+      <div class="input-group"><label for="ticket-asunto">Asunto</label><input id="ticket-asunto" data-field="asunto" placeholder="Asunto"></div>
+      <div class="input-group"><label for="ticket-usuario">Usuario</label><input id="ticket-usuario" data-field="usuario" placeholder="Usuario"></div>
+      <div class="input-group"><label for="ticket-qf">QF</label><input id="ticket-qf" data-field="qf" placeholder="Número QF (sin QF-)"></div>
+      <div class="input-group"><label for="ticket-medio">Medio de contacto</label><input id="ticket-medio" value="Ticketera 360" readonly></div>
+      <div class="input-group"><label for="ticket-empresa">Nombre de empresa</label><input id="ticket-empresa" data-field="empresa" placeholder="Nombre de empresa"></div>
+      <div class="input-group"><label for="ticket-solicita-nombre">Nombre de quien solicita</label><input id="ticket-solicita-nombre" data-field="solicitante" placeholder="Nombre de quien solicita"></div>
+      <div class="input-group"><label for="ticket-correo">Correo</label><input id="ticket-correo" data-field="correo" type="email" placeholder="Correo"></div>
+      <div class="input-group"><label for="ticket-nd">ND del inconveniente</label><input id="ticket-nd" data-field="nd" placeholder="ND del inconveniente"></div>
+      <div class="input-group"><label for="ticket-contactos">Contactos</label><input id="ticket-contactos" data-field="contactos" placeholder="Contactos"></div>
+      <div class="input-group full"><label for="ticket-solicita">Solicita</label><input id="ticket-solicita" data-field="solicitud" placeholder="Solicita"></div>
+      <div class="input-group full"><label for="ticket-comentario">Comentario</label><textarea id="ticket-comentario" data-field="comentario" placeholder="Comentario"></textarea></div>
+    </div>
+    <div class="botones"><button class="btn-copy" type="button" onclick="copiarPlantilla('ticket')">📄 Copiar Plantilla Completa</button><button class="btn-clear" type="button" onclick="limpiarFormulario('ticket')">🗑 Limpiar</button></div>
+  </section>
 
-<div class="toast" id="toast"></div>
+  <section class="card" data-template="facturacion">
+    <h2 class="template-title">Plantilla de facturación electrónica</h2><p class="template-description">Complete la información relacionada con FEL y los DTE no recibidos.</p>
+    <div class="form-grid">
+      <div class="input-group"><label for="fel-nombre">Nombre de quien llama</label><input id="fel-nombre" data-field="nombre" placeholder="Nombre de quien llama"></div>
+      <div class="input-group"><label for="fel-numero">Número del que llama</label><input id="fel-numero" data-field="numero" placeholder="Número del que llama"></div>
+      <div class="input-group"><label for="fel-empresa">Empresa</label><input id="fel-empresa" data-field="empresa" placeholder="Empresa"></div>
+      <div class="input-group"><label for="fel-id-cliente">ID cliente</label><input id="fel-id-cliente" data-field="idCliente" placeholder="ID cliente"></div>
+      <div class="input-group"><label for="fel-nd">ND</label><input id="fel-nd" data-field="nd" placeholder="ND"></div>
+      <div class="input-group"><label for="fel-correo">Correo electrónico FEL</label><input id="fel-correo" data-field="correo" type="email" placeholder="Correo electrónico FEL"></div>
+      <div class="input-group"><label for="fel-tipo">Tipo de documento (CCF o FCF)</label><input id="fel-tipo" data-field="tipoDocumento" placeholder="CCF o FCF"></div>
+      <div class="input-group"><label for="fel-iva">Exento, Exportación o gravado IVA</label><input id="fel-iva" data-field="tipoIva" placeholder="Exento, Exportación o gravado IVA"></div>
+      <div class="input-group full"><label for="fel-dte">DTE´s no recibidos</label><textarea id="fel-dte" data-field="dte" placeholder="DTE´s no recibidos"></textarea></div>
+      <div class="input-group full"><label for="fel-contactos">Contactos</label><input id="fel-contactos" data-field="contactos" placeholder="Contactos"></div>
+      <div class="input-group full"><label for="fel-comentario">Comentario</label><textarea id="fel-comentario" data-field="comentario" placeholder="Comentario"></textarea></div>
+    </div>
+    <div class="botones"><button class="btn-copy" type="button" onclick="copiarPlantilla('facturacion')">📄 Copiar Plantilla Completa</button><button class="btn-clear" type="button" onclick="limpiarFormulario('facturacion')">🗑 Limpiar</button></div>
+  </section>
 
+  <section class="card" data-template="pago">
+    <h2 class="template-title">Plantilla de pago</h2><p class="template-description">Registre los datos del pago para copiar y compartir.</p>
+    <div class="form-grid">
+      <div class="input-group"><label for="pago-fecha">Fecha de pago</label><input id="pago-fecha" data-field="fecha" placeholder="Fecha de pago"></div>
+      <div class="input-group"><label for="pago-autorizacion">Número de autorización bancaria</label><input id="pago-autorizacion" data-field="autorizacion" placeholder="Número de autorización bancaria"></div>
+      <div class="input-group"><label for="pago-npe">NPE o número de servicio</label><input id="pago-npe" data-field="npe" placeholder="NPE o número de servicio"></div>
+      <div class="input-group"><label for="pago-tarjeta">Últimos 4 dígitos de la tarjeta utilizada</label><input id="pago-tarjeta" data-field="tarjeta" inputmode="numeric" maxlength="4" placeholder="Últimos 4 dígitos"></div>
+      <div class="input-group"><label for="pago-monto">Monto cancelado</label><input id="pago-monto" data-field="monto" placeholder="Monto cancelado"></div>
+      <div class="input-group"><label for="pago-banco">Banco donde realizó el pago</label><input id="pago-banco" data-field="banco" placeholder="Banco donde realizó el pago"></div>
+    </div>
+    <div class="botones"><button class="btn-copy" type="button" onclick="copiarPlantilla('pago')">📄 Copiar Plantilla Completa</button><button class="btn-clear" type="button" onclick="limpiarFormulario('pago')">🗑 Limpiar</button></div>
+  </section>
+
+  <section class="card" data-template="falla">
+    <h2 class="template-title">Plantilla de reporte de falla</h2><p class="template-description">Complete los datos del reporte de falla para copiar la plantilla.</p>
+    <div class="form-grid">
+      <div class="input-group"><label for="falla-nombre">Nombre</label><input id="falla-nombre" data-field="nombre" placeholder="Nombre"></div>
+      <div class="input-group"><label for="falla-telefonos">Teléfonos de fallas</label><input id="falla-telefonos" data-field="telefonos" placeholder="Teléfonos de fallas"></div>
+      <div class="input-group"><label for="falla-error">Error</label><input id="falla-error" data-field="error" placeholder="Error"></div>
+      <div class="input-group"><label for="falla-fecha">Fecha de inicio de falla</label><input id="falla-fecha" data-field="fecha" placeholder="Fecha de inicio de falla"></div>
+      <div class="input-group"><label for="falla-correo">Correo Electrónico</label><input id="falla-correo" data-field="correo" type="email" placeholder="Correo Electrónico"></div>
+      <div class="input-group"><label for="falla-caso">Número de caso</label><input id="falla-caso" data-field="caso" placeholder="Número de caso"></div>
+      <div class="input-group full"><label for="falla-direccion">Dirección específica (RR.SS. puede hacer uso de coordenadas)</label><textarea id="falla-direccion" data-field="direccion" placeholder="Dirección específica o coordenadas"></textarea></div>
+      <div class="input-group full"><label for="falla-contacto">Contacto fijo u otro operador</label><input id="falla-contacto" data-field="contacto" placeholder="Contacto fijo u otro operador"></div>
+      <div class="input-group full"><label for="falla-comentario">Comentario</label><textarea id="falla-comentario" data-field="comentario" placeholder="Comentario"></textarea></div>
+    </div>
+    <div class="botones"><button class="btn-copy" type="button" onclick="copiarPlantilla('falla')">📄 Copiar Plantilla Completa</button><button class="btn-clear" type="button" onclick="limpiarFormulario('falla')">🗑 Limpiar</button></div>
+  </section>
+</main>
 <script>
-
-const campos = document.querySelectorAll("input, textarea");
-
-campos.forEach(campo=>{
-    campo.addEventListener("input", actualizarPreview);
-});
-
-function actualizarPreview(){
-
-const texto =
-`NOMBRE DE QUIEN LLAMA: ${document.getElementById("nombre").value}
-ND QUE REPORTA: ${document.getElementById("nd").value}
-NOMBRE DE LA EMPRESA: ${document.getElementById("empresa").value}
-SD: ${document.getElementById("sd").value}
-F: ${document.getElementById("f").value}
-CELULAR DE CONTACTO: ${document.getElementById("celular").value}
-CORREO: ${document.getElementById("correo").value}
-COMENTARIO: ${document.getElementById("comentario").value}
-
-SE PROCEDE CON CIERRE DE TICKET POR PÉRDIDA DE FLUJO QF-${document.getElementById("casoQF").value}`;
-
-document.getElementById("resultado").value = texto;
-
-return texto;
-}
-
-function mostrarToast(mensaje){
-
-const toast = document.getElementById("toast");
-
-toast.textContent = mensaje;
-toast.classList.add("show");
-
-setTimeout(()=>{
-   ;
-},2000);
-
-}
-
-function copiarQF(){
-
-const texto = "SE PROCEDE CON CIERRE DE TICKET POR PÉRDIDA DE FLUJO QF-" + document.getElementById("casoQF").value;
-
-navigator.clipboard.writeText(texto);
-
-mostrarToast("✅ QF copiado");
-}
-
-function copiarPlantilla(){
-
-navigator.clipboard.writeText(actualizarPreview());
-
-mostrarToast("✅ Plantilla copiada");
-}
-
-function limpiarFormulario(){
-
-document.querySelectorAll("input, textarea").forEach(campo=>{
-
-if(campo.id !== "resultado"){
-campo.value="";
-}
-
-});
-
-actualizarPreview();
-
-mostrarToast("🗑 Formulario limpiado");
-}
-
-actualizarPreview();
-
+const plantillas={
+  cierre:{fields:[['NOMBRE DE QUIEN LLAMA','nombre'],['ND QUE REPORTA','nd'],['NOMBRE DE LA EMPRESA','empresa'],['SD','sd'],['F','f'],['CELULAR DE CONTACTO','celular'],['CORREO','correo'],['COMENTARIO','comentario']],build:v=>`${v}\n\nSE PROCEDE CON CIERRE DE TICKET POR PÉRDIDA DE FLUJO QF-${leer('cierre','casoQF')}`},
+  ticket:{fields:[['Id Ticket','ticket'],['Asunto','asunto'],['Usuario','usuario'],['QF','qf'],['Nombre de empresa','empresa'],['Nombre de quien solicita','solicitante'],['Correo','correo'],['ND del inconveniente','nd'],['Contactos','contactos'],['Solicita','solicitud'],['Comentario','comentario']],build:v=>`Id Ticket: ${leer('ticket','ticket')}\nAsunto: ${leer('ticket','asunto')}\nUsuario: ${leer('ticket','usuario')}\n\nQF-${leer('ticket','qf')}\n\nMedio de contacto: Ticketera 360\nNombre de empresa: ${leer('ticket','empresa')}\nNombre de quien solicita: ${leer('ticket','solicitante')}\nCorreo: ${leer('ticket','correo')}\nND del inconveniente: ${leer('ticket','nd')}\nContactos: ${leer('ticket','contactos')}\nSolicita: ${leer('ticket','solicitud')}\n\nComentario:\n${leer('ticket','comentario')}`},
+  facturacion:{fields:[['Nombre de quien llama','nombre'],['Número del que llama','numero'],['Empresa','empresa'],['ID cliente','idCliente'],['ND','nd'],['Correo electrónico FEL','correo'],['Tipo de documento','tipoDocumento'],['Exento, Exportación o gravado IVA','tipoIva'],['DTE´s no recibidos','dte'],['Contactos','contactos'],['Comentario','comentario']]},
+  pago:{fields:[['Fecha de pago','fecha'],['Número de autorización bancaria','autorizacion'],['NPE o número de servicio','npe'],['Últimos 4 dígitos de la tarjeta utilizada','tarjeta'],['Monto cancelado','monto'],['Banco donde realizó el pago','banco']]},
+  falla:{fields:[['Nombre','nombre'],['Teléfonos de fallas','telefonos'],['Error','error'],['Dirección específica (RR.SS. puede hacer uso de coordenadas)','direccion'],['Fecha de inicio de falla','fecha'],['Correo Electrónico','correo'],['Número de caso','caso'],['Contacto fijo u otro operador','contacto'],['Comentario','comentario']]}
+};
+function leer(tipo,campo){return document.querySelector(`[data-template="${tipo}"] [data-field="${campo}"]`)?.value.trim()||''}
+function obtenerTexto(tipo){const plantilla=plantillas[tipo];const valores=plantilla.fields.map(([etiqueta,campo])=>`${etiqueta}: ${leer(tipo,campo)}`).join('\n');return plantilla.build?plantilla.build(valores):valores}
+async function copiarPlantilla(tipo){try{await navigator.clipboard.writeText(obtenerTexto(tipo));alert('Plantilla copiada al portapapeles.')}catch(error){const area=document.createElement('textarea');area.value=obtenerTexto(tipo);document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();alert('Plantilla copiada al portapapeles.')}}
+function copiarQF(){const texto=`SE PROCEDE CON CIERRE DE TICKET POR PÉRDIDA DE FLUJO QF-${leer('cierre','casoQF')}`;navigator.clipboard.writeText(texto).then(()=>alert('QF copiado al portapapeles.')).catch(()=>alert(texto))}
+function limpiarFormulario(tipo){document.querySelectorAll(`[data-template="${tipo}"] [data-field]`).forEach(campo=>campo.value='')}
 </script>
-
 </body>
 </html>
